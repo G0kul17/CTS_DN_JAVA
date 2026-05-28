@@ -1,0 +1,821 @@
+/* ============================================================
+   LOCAL COMMUNITY EVENT PORTAL — styles.css
+   External Stylesheet (CSS Inclusion Method #3)
+   Use Chrome DevTools Device Toolbar to test responsiveness
+   ============================================================ */
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+/* ============================================================
+   CSS Custom Properties (Design Tokens)
+   ============================================================ */
+:root {
+  --bg:        #F5F0E8;
+  --primary:   #1A6B6B;
+  --primary-dk:#145454;
+  --accent:    #E8A020;
+  --text:      #2C2C2C;
+  --text-muted:#666666;
+  --surface:   #FFFFFF;
+  --border:    #D9D1C0;
+  --error:     #C0392B;
+  --success:   #1A6B4A;
+  --radius:    6px;
+  --transition:0.2s ease;
+}
+
+/* ============================================================
+   Universal Reset
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   Base — Element Selectors
+   ============================================================ */
+body {
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.65;
+}
+
+/* Grouping selector: h3, p */
+h3, p {
+  line-height: 1.65;
+}
+
+h1 {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.3px;
+}
+
+h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   ID Selector — #mainHeader
+   ============================================================ */
+#mainHeader {
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0.9rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-area .org-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+}
+
+.logo-area h1 {
+  font-size: 1.25rem;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ============================================================
+   Navigation
+   ============================================================ */
+
+/* Navigation */
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+nav ul li {
+  padding: 0;
+  margin: 0;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: var(--radius);
+  transition: background var(--transition), color var(--transition);
+}
+
+/* Link pseudo-classes */
+nav a:link    { color: var(--text); text-decoration: none; }
+nav a:visited { color: var(--text-muted); }
+nav a:hover   { background: rgba(26,107,107,0.1); color: var(--primary); text-decoration: none; }
+nav a:active  { background: var(--primary); color: #fff; }
+
+.nav-help {
+  border: 1.5px solid var(--accent);
+  color: var(--accent) !important;
+}
+.nav-help:hover {
+  background: rgba(232,160,32,0.12) !important;
+  color: var(--accent) !important;
+}
+
+/* ============================================================
+   Main Wrapper
+   ============================================================ */
+.page-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+section {
+  margin-bottom: 3.5rem;
+}
+
+/* ============================================================
+   Section Headers — linear-gradient (subtle)
+   ============================================================ */
+.section-hd {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, rgba(26,107,107,0.08) 0%, transparent 100%);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.section-hd h2 {
+  margin-bottom: 0.1rem;
+}
+
+.section-hd p {
+  margin-bottom: 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Welcome Banner (#welcomeBanner styled via internal CSS)
+   ============================================================ */
+#welcomeBanner {
+  /* background set via <style> block in <head> */
+  padding: 2rem 2.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 2rem;
+}
+
+#welcomeBanner h2 {
+  color: #fff;
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  margin-bottom: 0.5rem;
+}
+
+#welcomeBanner p {
+  color: rgba(255,255,255,0.85);
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+/* .highlight class */
+.highlight {
+  font-weight: 700;
+  color: rgba(255,255,255,0.95);
+  border-bottom: 2px solid rgba(255,255,255,0.5);
+}
+
+/* ============================================================
+   Event Cards — .eventCard (Class Selector)
+   ============================================================ */
+
+/* Event Cards */
+.cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.eventCard {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 0;
+  flex: 1 1 220px;
+  max-width: 280px;
+  transition: border-color var(--transition), transform var(--transition);
+  outline: none;
+}
+
+.eventCard:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+.eventCard .tag {
+  display: inline-block;
+  background: rgba(26,107,107,0.1);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
+  margin-bottom: 0.6rem;
+}
+
+.eventCard h3 {
+  margin-bottom: 0.35rem;
+  font-size: 0.97rem;
+}
+
+.eventCard p {
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.eventCard .fee-tag {
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   Image Gallery — CSS Grid
+   ============================================================ */
+
+/* Image Gallery */
+.gallery-wrap {
+  overflow-x: auto;
+}
+
+.gallery-table {
+  min-width: 540px;
+}
+
+.gallery-table caption {
+  caption-side: top;
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  text-align: left;
+  padding: 0 0 0.5rem 0;
+}
+
+/* Table Styling */
+.gallery-table th {
+  background: var(--primary);
+  color: #fff;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.gallery-table td {
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  text-align: center;
+  vertical-align: middle;
+  background: var(--surface);
+}
+
+.gallery-table tr:nth-child(even) td {
+  background: rgba(245,240,232,0.7);
+}
+
+.gallery-img {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  height: 110px;
+  object-fit: cover;
+  cursor: pointer;
+  margin: 0 auto;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.gallery-img:hover {
+  border-color: var(--primary);
+  transform: scale(1.04);
+}
+
+/* ============================================================
+   Registration Form
+   ============================================================ */
+
+/* Registration Form */
+.form-box {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.6rem 0.85rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 0.92rem;
+  color: var(--text);
+  background: var(--bg);
+  transition: border-color var(--transition);
+}
+
+/* Box Model: outline on focused form fields */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: 2px solid rgba(26,107,107,0.3);
+  outline-offset: 2px;
+  border-color: var(--primary);
+  background: #fff;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-group select {
+  cursor: pointer;
+}
+
+.char-count {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+#feeDisplay {
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-weight: 700;
+  min-height: 1.2em;
+}
+
+.phone-error {
+  font-size: 0.78rem;
+  color: var(--error);
+  font-weight: 500;
+  min-height: 1.2em;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.65rem 1.5rem;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--primary-dk);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1.5px solid var(--border);
+}
+.btn-outline:hover {
+  background: var(--border);
+}
+
+.btn-geo {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-geo:hover {
+  background: #c8871a;
+  transform: translateY(-1px);
+}
+
+.btn-clear {
+  background: transparent;
+  color: var(--error);
+  border: 1.5px solid var(--error);
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+}
+.btn-clear:hover {
+  background: rgba(192,57,43,0.07);
+}
+
+/* Output confirmation */
+output#formOutput {
+  display: none;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: rgba(26,107,74,0.09);
+  border: 1px solid rgba(26,107,74,0.25);
+  color: var(--success);
+}
+output#formOutput.show {
+  display: block;
+}
+
+/* ============================================================
+   Geolocation
+   ============================================================ */
+
+/* Geolocation */
+.geo-box {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+#geoResult {
+  font-size: 0.88rem;
+  font-family: monospace;
+  color: var(--primary);
+  background: rgba(26,107,107,0.06);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.85rem;
+  border-left: 3px solid var(--primary);
+  display: none;
+  margin-top: 0.75rem;
+  line-height: 1.8;
+}
+#geoResult.show { display: block; }
+#geoResult.err  { color: var(--error); border-left-color: var(--error); background: rgba(192,57,43,0.06); }
+
+/* ============================================================
+   Video Section
+   ============================================================ */
+
+/* Video */
+.video-box {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.video-box video {
+  width: 100%;
+  display: block;
+  max-height: 380px;
+  background: #000;
+}
+
+#videoStatus {
+  padding: 0.55rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--success);
+  background: rgba(26,107,74,0.07);
+  min-height: 2.2rem;
+}
+
+/* ============================================================
+   User Preferences
+   ============================================================ */
+
+/* Preferences */
+.prefs-bar {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.prefs-bar span.label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+#savedPref {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.92rem;
+}
+
+/* ============================================================
+   Multi-column Community Bulletin
+   ============================================================ */
+
+/* Community Bulletin */
+#bulletin {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem 2rem;
+}
+
+.bulletin-body {
+  column-count: 2;
+  column-gap: 30px;
+  column-rule: 1px solid #ccc;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  text-align: justify;
+}
+
+.bulletin-body h3 {
+  break-after: avoid;
+  margin-bottom: 0.4rem;
+  color: var(--primary);
+  font-size: 0.92rem;
+}
+
+.bulletin-body p {
+  break-inside: avoid;
+  margin-bottom: 0.9rem;
+}
+
+/* ============================================================
+   Table (standalone) — Help page
+   ============================================================ */
+.data-table {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.data-table th {
+  background: var(--primary);
+  color: #fff;
+  padding: 0.65rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.data-table td {
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border);
+  text-align: center;
+  vertical-align: middle;
+  font-size: 0.88rem;
+}
+
+.data-table tr:nth-child(even) td {
+  background: rgba(245,240,232,0.65);
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+/* Footer */
+footer {
+  background: #2C2C2C;
+  color: rgba(255,255,255,0.6);
+  padding: 2rem 1.5rem 1.25rem;
+  margin-top: 3rem;
+}
+
+.footer-in {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.footer-row {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.footer-col {
+  flex: 1 1 160px;
+}
+
+.footer-col h3 {
+  color: var(--accent);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.65rem;
+}
+
+.footer-col p {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  margin-bottom: 0.35rem;
+}
+
+.footer-col ul {
+  list-style-type: disc;
+  padding-left: 1.1rem;
+}
+
+.footer-col ul li {
+  padding: 0.18rem 0;
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+/* Footer link pseudo-classes */
+.footer-col a:link    { color: rgba(255,255,255,0.55); text-decoration: none; }
+.footer-col a:visited { color: rgba(255,255,255,0.4); }
+.footer-col a:hover   { color: var(--accent); text-decoration: none; }
+.footer-col a:active  { color: #fff; }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ============================================================
+   Box Model Comment:
+   visibility: hidden → hides element but KEEPS space in layout.
+   display: none      → hides element AND removes it from layout.
+   ============================================================ */
+
+/* ============================================================
+   Utility
+   ============================================================ */
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+
+/* ============================================================
+   Responsive — @media (max-width: 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Nav stacks vertically */
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+    width: 100%;
+  }
+
+  nav ul li { width: 100%; }
+
+  nav a {
+    display: block;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  /* Smaller fonts */
+  h1 { font-size: 1.2rem; }
+  h2 { font-size: 1.1rem; }
+
+  /* Form: single column */
+  .form-grid { grid-template-columns: 1fr; }
+
+  /* Cards: full width */
+  .eventCard { max-width: 100%; flex: 1 1 100%; }
+
+  /* Gallery images: smaller */
+  .gallery-img { max-width: 100%; height: 80px; }
+
+  /* Bulletin: single column */
+  .bulletin-body { column-count: 1; }
+
+  /* Footer: single column */
+  .footer-row { flex-direction: column; gap: 1.25rem; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+
+  /* Geo box */
+  .geo-box { flex-direction: column; gap: 1rem; }
+  .prefs-bar { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+
+  .page-wrap { padding: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .form-box { padding: 1.1rem; }
+  #welcomeBanner { padding: 1.25rem 1.5rem; }
+  .gallery-img { height: 65px; }
+}
