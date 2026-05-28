@@ -1,0 +1,8 @@
+[
+  { "id": 1, "name": "City Music Night",  "date": "2025-07-15", "category": "Music",     "location": "Central Park",      "seats": 50, "fee": 0   },
+  { "id": 2, "name": "Baking Workshop",   "date": "2025-07-20", "category": "Workshop",  "location": "Community Hall",     "seats": 20, "fee": 100 },
+  { "id": 3, "name": "Yoga in the Park",  "date": "2025-08-01", "category": "Health",    "location": "Riverside Garden",   "seats": 30, "fee": 50  },
+  { "id": 4, "name": "Photography Walk",  "date": "2025-08-10", "category": "Workshop",  "location": "Old Town",           "seats": 15, "fee": 200 },
+  { "id": 5, "name": "Jazz Evening",      "date": "2025-08-22", "category": "Music",     "location": "Town Square",        "seats": 0,  "fee": 0   },
+  { "id": 6, "name": "Kids Coding Camp",  "date": "2025-09-05", "category": "Education", "location": "Library",            "seats": 25, "fee": 150 }
+]

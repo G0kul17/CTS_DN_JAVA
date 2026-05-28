@@ -18,6 +18,11 @@
 
   <!-- CSS Method #3: External stylesheet -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- jQuery CDN (Req #14) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+          integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+          crossorigin="anonymous"></script>
 </head>
 
 <!-- onbeforeunload warns if form has unsaved input -->
@@ -35,6 +40,7 @@
     <nav aria-label="Main navigation">
       <ul>
         <li><a href="#home">Home</a></li>
+        <li><a href="#browse">Browse</a></li>
         <li><a href="#events">Events</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#register">Register</a></li>
@@ -101,6 +107,47 @@
     </div>
   </section>
   <!-- End Home -->
+
+  <!-- ===== BROWSE EVENTS (JS-powered) ===== -->
+  <section id="browse" aria-labelledby="browse-h">
+    <div class="section-hd">
+      <h2 id="browse-h">Browse &amp; Register</h2>
+      <p>Live search, filter by category, and register — powered by JavaScript</p>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar">
+      <input
+        type="text"
+        id="searchBox"
+        placeholder="Search events&hellip;"
+        aria-label="Search events"
+      />
+      <select id="categoryFilter" aria-label="Filter by category">
+        <option value="All">All Categories</option>
+        <option value="Music">Music</option>
+        <option value="Workshop">Workshop</option>
+        <option value="Health">Health</option>
+        <option value="Education">Education</option>
+      </select>
+      <button id="resetFiltersBtn" class="btn btn-outline">&#8635; Reset Filters</button>
+    </div>
+
+    <!-- Stats bar -->
+    <div id="totalSeatsDisplay" class="stats-bar"></div>
+    <div id="categoryCount" class="stats-bar stats-accent"></div>
+
+    <!-- Loading spinner -->
+    <div id="loader" style="display:none;" aria-live="polite" aria-label="Loading events">
+      <span class="loader-spinner"></span>
+      <span>Loading events&hellip;</span>
+    </div>
+
+    <!-- Dynamic event cards injected here by main.js -->
+    <div id="eventsContainer" class="cards-row" aria-live="polite"></div>
+
+  </section>
+  <!-- End Browse -->
 
   <!-- ===== GALLERY ===== -->
   <section id="gallery" aria-labelledby="gallery-h">
@@ -201,6 +248,7 @@
               required
               autofocus
             />
+            <span class="field-error" id="nameError" aria-live="polite"></span>
           </div>
 
           <!-- Email -->
@@ -213,6 +261,7 @@
               placeholder="jane@example.com"
               required
             />
+            <span class="field-error" id="emailError" aria-live="polite"></span>
           </div>
 
           <!-- Phone -->
@@ -225,7 +274,7 @@
               placeholder="10-digit number"
               onblur="validatePhone(this)"
             />
-            <!-- Error span shown by JS on blur -->
+            <!-- Error span shown by inline JS on blur (HTML5 exercise) -->
             <span class="phone-error" id="phoneError" aria-live="polite"></span>
           </div>
 
@@ -258,6 +307,7 @@
               <option value="concert-night" data-fee="$15.00">Concert Night</option>
             </select>
             <span id="feeDisplay" aria-live="polite"></span>
+            <span class="field-error" id="eventTypeError" aria-live="polite"></span>
           </div>
 
           <!-- Message / Feedback textarea -->
@@ -277,19 +327,18 @@
 
         <!-- Actions -->
         <div class="form-actions">
-          <button
-            type="submit"
-            id="submitBtn"
-            class="btn btn-primary"
-            onclick="handleSubmit(event)"
-          >
+          <!-- onclick removed — main.js handles via addEventListener (Req #11) -->
+          <button type="submit" id="submitBtn" class="btn btn-primary">
             Register Now
           </button>
           <button type="reset" class="btn btn-outline">Reset</button>
         </div>
 
-        <!-- Output: confirmation message -->
+        <!-- Output: confirmation message (HTML5 exercise) -->
         <output id="formOutput" name="result" for="fullName emailAddr eventType" aria-live="assertive"></output>
+
+        <!-- Registration API message (JS exercise #12) -->
+        <div id="registrationMessage" class="reg-message" style="display:none;" aria-live="polite"></div>
 
       </form>
     </div>
@@ -882,6 +931,9 @@
     console.log('[Init] Ready.');
   });
 </script>
+
+  <!-- main.js — all JavaScript exercises (linked at bottom of body, Req #1) -->
+  <script src="main.js"></script>
 
 </body>
 </html>
