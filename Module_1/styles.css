@@ -1,6 +1,20 @@
+/*
+  SASS CUSTOMIZATION (Exercise 19):
+  To customize Bootstrap with Sass:
+  1. npm install bootstrap sass
+  2. Create custom.scss:
+     $primary: #1A6B6B;
+     $border-radius: 0.5rem;
+     @import "../node_modules/bootstrap/scss/bootstrap";
+  3. Compile: npx sass custom.scss styles.css
+  This allows full Bootstrap variable override before compilation.
+  See custom.scss for the full configuration.
+*/
+
 /* ============================================================
    LOCAL COMMUNITY EVENT PORTAL — styles.css
    External Stylesheet (CSS Inclusion Method #3)
+   Loaded AFTER Bootstrap CDN → overrides take effect.
    Use Chrome DevTools Device Toolbar to test responsiveness
    ============================================================ */
 
@@ -11,6 +25,7 @@
    CSS Custom Properties (Design Tokens)
    ============================================================ */
 :root {
+  /* ── Custom design tokens ── */
   --bg:        #F5F0E8;
   --primary:   #1A6B6B;
   --primary-dk:#145454;
@@ -23,6 +38,16 @@
   --success:   #1A6B4A;
   --radius:    6px;
   --transition:0.2s ease;
+
+  /* ── Bootstrap variable overrides (Exercise 13.2) ── */
+  --bs-primary:          #1A6B6B;
+  --bs-primary-rgb:      26, 107, 107;
+  --bs-font-sans-serif:  'DM Sans', Arial, sans-serif;
+  --bs-body-bg:          #F5F0E8;
+  --bs-body-color:       #2C2C2C;
+  --bs-border-color:     #D9D1C0;
+  --bs-link-color:       #1A6B6B;
+  --bs-link-hover-color: #145454;
 }
 
 /* ============================================================
@@ -1075,3 +1100,181 @@ footer {
   .btn-sm { width: 100%; justify-content: center; }
 }
 
+/* ============================================================
+   BOOTSTRAP 5 COMPONENT OVERRIDES (Module 3)
+   Loaded after Bootstrap CDN — wins by source order.
+   ============================================================ */
+
+/* ── Keep DM Sans over Bootstrap's system font stack ── */
+body, .navbar, .btn, .form-control, .form-select,
+.card, .accordion, .modal { font-family: 'DM Sans', Arial, sans-serif !important; }
+
+/* ── Navbar (Exercise 10.1) ── */
+#mainHeader {
+  background-color: #1A6B6B !important;
+  border-bottom: 2px solid #145454;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+#mainHeader .navbar-brand,
+#mainHeader .nav-link { color: rgba(255,255,255,0.9) !important; }
+#mainHeader .nav-link:hover,
+#mainHeader .nav-link:focus { color: #E8A020 !important; background: rgba(255,255,255,0.1); border-radius: 4px; }
+#mainHeader .nav-link.nav-help { border: 1.5px solid #E8A020; border-radius: 4px; }
+#mainHeader .navbar-toggler { border-color: rgba(255,255,255,0.4); }
+#mainHeader .navbar-toggler-icon { filter: brightness(0) invert(1); }
+#mainHeader .form-control { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.3); color: #fff; }
+#mainHeader .form-control::placeholder { color: rgba(255,255,255,0.6); }
+#mainHeader .form-control:focus { background: rgba(255,255,255,0.2); box-shadow: none; }
+
+/* ── btn-primary → teal ── */
+.btn-primary {
+  background-color: #1A6B6B !important;
+  border-color: #1A6B6B !important;
+  color: #fff !important;
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+  background-color: #145454 !important;
+  border-color: #145454 !important;
+}
+.btn-outline-primary { color: #1A6B6B !important; border-color: #1A6B6B !important; }
+.btn-outline-primary:hover { background-color: #1A6B6B !important; color: #fff !important; }
+
+/* ── Bootstrap Card enhancements (Exercise 11.1, 15.2) ── */
+.card {
+  border-color: #D9D1C0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.5rem 1.5rem rgba(26,107,107,0.18) !important; /* shadow-lg on hover */
+  border-color: #1A6B6B;
+}
+.card-header {
+  background: rgba(26,107,107,0.07);
+  border-bottom-color: #D9D1C0;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #1A6B6B;
+}
+.card-footer { background: rgba(245,240,232,0.7); border-top-color: #D9D1C0; }
+
+/* ── Category badge amber (Exercise 7.2, 15.2) ── */
+.badge-category, .badge[data-type="category"] {
+  background-color: #E8A020 !important;
+  color: #fff !important;
+}
+.badge.rounded-pill { font-weight: 600; letter-spacing: 0.3px; }
+
+/* ── Bootstrap table (body bg override) ── */
+.table { background: #fff; }
+.table thead th { background: #1A6B6B; color: #fff; border-color: #145454; }
+.table-striped > tbody > tr:nth-of-type(odd) > * { background: rgba(245,240,232,0.7); }
+.table td, .table th { border-color: #D9D1C0; vertical-align: middle; }
+
+/* ── Accordion (Exercise 18.2) ── */
+.accordion-item { border-color: #D9D1C0; background: #fff; }
+.accordion-button { font-weight: 600; color: #2C2C2C; background: #fff; }
+.accordion-button:not(.collapsed) {
+  background: rgba(26,107,107,0.07);
+  color: #1A6B6B;
+  box-shadow: inset 0 -1px 0 #D9D1C0;
+}
+.accordion-button:focus { box-shadow: 0 0 0 0.2rem rgba(26,107,107,0.25); }
+.accordion-button::after { filter: hue-rotate(150deg); }
+
+/* ── Bootstrap Modal (Exercise 18.1) ── */
+.modal-header {
+  background: #1A6B6B;
+  color: #fff;
+  border-bottom: none;
+}
+.modal-header .btn-close { filter: brightness(0) invert(1); }
+.modal-title { font-weight: 700; }
+.modal-footer { border-top-color: #D9D1C0; background: rgba(245,240,232,0.5); }
+
+/* ── Form controls override ── */
+.form-control, .form-select {
+  border-color: #D9D1C0;
+  background: #fff;
+  color: #2C2C2C;
+}
+.form-control:focus, .form-select:focus {
+  border-color: #1A6B6B;
+  box-shadow: 0 0 0 0.2rem rgba(26,107,107,0.2);
+}
+.input-group-text {
+  background: rgba(26,107,107,0.08);
+  border-color: #D9D1C0;
+  color: #1A6B6B;
+}
+.form-check-input:checked { background-color: #1A6B6B; border-color: #1A6B6B; }
+.form-label { font-weight: 600; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.6px; }
+.form-floating label { font-weight: 500; color: #666; }
+
+/* ── Pricing cards (Exercise 12.2) ── */
+.pricing-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.pricing-card:hover { transform: translateY(-6px); box-shadow: 0 0.6rem 2rem rgba(26,107,107,0.2) !important; }
+.pricing-card.featured { border: 2px solid #1A6B6B; }
+.pricing-card .price { font-size: 2.4rem; font-weight: 700; color: #1A6B6B; }
+.pricing-card .price sup { font-size: 1.2rem; vertical-align: top; margin-top: 0.6rem; }
+.pricing-free .price { color: #1A6B4A; }
+
+/* ── Fixed footer (Exercise 16.1, 17.1) ── */
+#siteFooter {
+  background: #2C2C2C;
+  color: rgba(255,255,255,0.6);
+  z-index: 1030;
+  padding: 0.6rem 0;
+  border-top: 2px solid #1A6B6B;
+}
+#siteFooter a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+#siteFooter a:hover { color: #E8A020; }
+#siteFooter .bi { font-size: 1.15rem; }
+#siteFooter .text-lowercase { text-transform: lowercase; font-size: 0.8rem; }
+
+/* body padding so content isn't hidden under fixed footer */
+body { padding-bottom: 58px !important; }
+
+/* ── Sidebar (Exercise 4.1) ── */
+.sidebar-cat-btn {
+  border: none;
+  text-align: left;
+  font-size: 0.87rem;
+  font-weight: 500;
+  color: #2C2C2C;
+  padding: 0.55rem 1rem;
+  background: transparent;
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar-cat-btn:hover { background: rgba(26,107,107,0.08); color: #1A6B6B; }
+.sidebar-cat-btn.active { background: #1A6B6B !important; color: #fff !important; }
+
+/* ── section spacing in Bootstrap context ── */
+section.py-4, section.py-5 { scroll-margin-top: 70px; }
+
+/* ── List group override ── */
+.list-group-item { border-color: #D9D1C0; }
+.list-group-item.active { background: #1A6B6B; border-color: #1A6B6B; }
+
+/* ── Avatar circle (Exercise 15.1) ── */
+.avatar-circle {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+
+/* ── nav-pills override ── */
+.nav-pills .nav-link { color: #2C2C2C; font-weight: 500; }
+.nav-pills .nav-link.active { background-color: #1A6B6B; }
+.nav-tabs .nav-link { color: #2C2C2C; }
+.nav-tabs .nav-link.active { color: #1A6B6B; border-bottom-color: #1A6B6B; }
+
+/* ── Progress / alert adjustments ── */
+.alert-info { --bs-alert-color: #1A6B6B; --bs-alert-bg: rgba(26,107,107,0.08); --bs-alert-border-color: rgba(26,107,107,0.25); }
+
+/* ── Responsive: stack footer on mobile ── */
+@media (max-width: 576px) {
+  #siteFooter .d-flex { flex-direction: column; gap: 0.4rem; text-align: center; }
+}

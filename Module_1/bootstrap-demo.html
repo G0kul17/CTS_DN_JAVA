@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bootstrap 5 exercise demo page for the Maplewood Local Community Event Portal — covering typography, grid, forms, buttons, tabs, cards and more." />
+  <title>Bootstrap 5 Exercise Demo — Maplewood Community Portal</title>
+
+  <!-- Bootstrap 5.3.3 CSS CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
+  <!-- Bootstrap Icons 1.11.3 CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- Google Fonts — DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <!-- Site stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ── Base ── */
+    body {
+      background: #F5F0E8;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* ── Custom colour tokens ── */
+    :root {
+      --clr-teal:    #1A6B6B;
+      --clr-amber:   #E8A020;
+      --clr-cream:   #F5F0E8;
+      --clr-charcoal:#2C2C2C;
+    }
+
+    /* ── Sticky Navbar ── */
+    .demo-navbar {
+      background-color: var(--clr-teal) !important;
+    }
+    .demo-navbar .navbar-brand,
+    .demo-navbar .nav-link {
+      color: #fff !important;
+    }
+    .demo-navbar .nav-link:hover {
+      color: var(--clr-amber) !important;
+    }
+    .demo-navbar .back-link {
+      font-size: 0.875rem;
+      opacity: 0.85;
+      transition: opacity 0.2s;
+    }
+    .demo-navbar .back-link:hover { opacity: 1; }
+
+    /* ── Section Header ── */
+    .section-hd {
+      border-left: 4px solid var(--clr-teal);
+      background: linear-gradient(90deg, rgba(26,107,107,0.08) 0%, transparent 100%);
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1.5rem;
+      border-radius: 0 6px 6px 0;
+    }
+    .section-hd h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--clr-teal);
+      margin: 0;
+    }
+    .section-hd small {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+
+    /* ── Hero Strip ── */
+    .demo-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+    .demo-hero .badge-demo {
+      background: var(--clr-amber);
+      color: var(--clr-charcoal);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Stat Cards ── */
+    .stat-card {
+      border: none;
+      border-top: 3px solid var(--clr-teal);
+      border-radius: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(26,107,107,0.15) !important;
+    }
+    .stat-card .stat-icon {
+      font-size: 2rem;
+      color: var(--clr-teal);
+    }
+    .stat-card h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--clr-charcoal);
+    }
+
+    /* ── Pricing Cards ── */
+    .pricing-card {
+      border: 1px solid rgba(26,107,107,0.2);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .pricing-card:hover { transform: translateY(-6px); }
+    .pricing-card.featured {
+      border: 2px solid var(--clr-teal);
+      transform: scale(1.03);
+    }
+    .pricing-card.featured:hover { transform: scale(1.03) translateY(-6px); }
+    .pricing-card .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--clr-charcoal);
+    }
+    .pricing-card .price span {
+      font-size: 3rem;
+    }
+    .pricing-card .feature-list { list-style: none; padding: 0; }
+    .pricing-card .feature-list li {
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .pricing-card .feature-list li:last-child { border-bottom: none; }
+
+    /* ── Avatar Circle ── */
+    .avatar-circle {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+    }
+    .avatar-lg {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .avatar-lg:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 0 4px rgba(26,107,107,0.2);
+    }
+
+    /* ── Color Dashboard boxes ── */
+    .dash-box { flex: 1 1 0; min-width: 80px; }
+
+    /* ── Tabs content areas ── */
+    .tab-content { background: #fff; border: 1px solid #dee2e6; border-top: none; border-radius: 0 0 8px 8px; padding: 1.25rem; }
+    .nav-tabs .nav-link.active { font-weight: 600; }
+
+    /* ── Pills demo ── */
+    .pill-content { background: #fff; border: 1px solid rgba(26,107,107,0.15); border-radius: 0 0 8px 8px; padding: 1.25rem; margin-top: -1px; }
+
+    /* ── Footer ── */
+    .demo-footer {
+      background: var(--clr-charcoal);
+      color: rgba(255,255,255,0.75);
+      font-size: 0.875rem;
+    }
+    .demo-footer a { color: var(--clr-amber); text-decoration: none; }
+    .demo-footer a:hover { text-decoration: underline; }
+
+    /* ── Misc ── */
+    .order-note {
+      background: rgba(26,107,107,0.07);
+      border: 1px dashed var(--clr-teal);
+      border-radius: 6px;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      color: var(--clr-teal);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       STICKY NAVBAR
+  ════════════════════════════════════════════ -->
+  <nav class="navbar navbar-expand-md sticky-top demo-navbar shadow-sm" id="demo-navbar">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+        <i class="bi bi-code-square"></i> Bootstrap Demo
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#demoNavMenu" aria-controls="demoNavMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list text-white fs-4"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="demoNavMenu">
+        <ul class="navbar-nav ms-auto align-items-md-center gap-md-1">
+          <li class="nav-item">
+            <a class="nav-link back-link d-flex align-items-center gap-1" href="index.html">
+              <i class="bi bi-arrow-left-circle"></i> Back to Portal
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#typography">Typography</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#grid">Grid</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#forms">Forms</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#buttons">Buttons</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#tabs">Tabs</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO STRIP
+  ════════════════════════════════════════════ -->
+  <section class="demo-hero" id="demo-hero">
+    <div class="container">
+      <span class="badge badge-demo rounded-pill mb-3 px-3 py-2">
+        <i class="bi bi-bootstrap-fill me-1"></i> Bootstrap 5.3.3 Exercises
+      </span>
+      <h1 class="display-5 text-white fw-bold mb-3">Bootstrap 5 Exercise Demo</h1>
+      <p class="lead text-white-50 mb-0">Maplewood Community Portal — Module 1 Practice Page</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — TYPOGRAPHY (Ex 7.1, 7.2)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 7.1 — Typography Scale -->
+  <!-- Exercise 7.2 — Text Utilities -->
+  <section id="typography" class="py-5">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-type me-2"></i>Section 1 — Typography</h2>
+        <small>Exercises 7.1 &amp; 7.2 — Display headings, text utilities, font weight &amp; transform</small>
+      </div>
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4" style="background:#fff;">
+
+          <!-- Ex 7.1: Display headings & lead -->
+          <!-- Exercise 7.1 — Display headings -->
+          <h1 class="display-1" style="color:var(--clr-teal);">Community Portal</h1>
+          <p class="lead" style="color:var(--clr-charcoal);">Find events near you</p>
+          <p class="text-muted">Powered by the city council</p>
+
+          <hr />
+
+          <!-- Ex 7.2: Text utilities -->
+          <!-- Exercise 7.2 — Font weight & text utilities -->
+          <div class="row g-3 align-items-start">
+            <div class="col-md-4">
+              <h6 class="text-uppercase fw-semibold" style="color:var(--clr-teal); letter-spacing:.08em;">Font Weight</h6>
+              <p class="mb-1"><strong class="fw-bold">fw-bold — Important Notice</strong></p>
+              <p class="mb-1 fw-semibold">fw-semibold — Sub-heading</p>
+              <p class="mb-1 fw-normal">fw-normal — Body copy</p>
+              <p class="mb-0 fw-light text-muted">fw-light — Caption text</p>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-uppercase fw-semibold" style="color:var(--clr-teal); letter-spacing:.08em;">Text Transform</h6>
+              <p class="mb-1 text-uppercase fw-semibold">
+                <i class="bi bi-link-45deg me-1"></i>text-uppercase — Nav Link
+              </p>
+              <p class="mb-1 text-capitalize">
+                <span class="badge rounded-pill px-2" style="background:var(--clr-amber);color:var(--clr-charcoal);">text-capitalize category</span>
+              </p>
+              <p class="mb-0 text-lowercase text-muted">
+                <small>text-lowercase — footer tagline</small>
+              </p>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-uppercase fw-semibold" style="color:var(--clr-teal); letter-spacing:.08em;">Color Utilities</h6>
+              <p class="mb-1 text-muted"><i class="bi bi-info-circle me-1"></i>text-muted — helper text</p>
+              <p class="mb-1 text-secondary"><small>text-secondary — <em>Terms apply</em></small></p>
+              <p class="mb-0">
+                <span class="text-success fw-semibold"><i class="bi bi-check-circle me-1"></i>text-success</span> &nbsp;
+                <span class="text-danger fw-semibold"><i class="bi bi-x-circle me-1"></i>text-danger</span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — GRID: 4 EQUAL COLUMNS (Ex 4.2)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 4.2 — Four equal columns using col-sm-3 -->
+  <section id="grid" class="py-4" style="background:rgba(26,107,107,0.04);">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-grid-3x3-gap me-2"></i>Section 2 — Grid: 4 Equal Columns</h2>
+        <small>Exercise 4.2 — col-sm-3 responsive four-column layout</small>
+      </div>
+
+      <div class="row g-4">
+        <!-- Column 1 -->
+        <div class="col-sm-3">
+          <div class="card stat-card shadow-sm h-100 text-center p-3">
+            <div class="card-body">
+              <div class="stat-icon mb-2"><i class="bi bi-calendar-event"></i></div>
+              <h3>6</h3>
+              <p class="text-muted mb-0">Total Events</p>
+            </div>
+          </div>
+        </div>
+        <!-- Column 2 -->
+        <div class="col-sm-3">
+          <div class="card stat-card shadow-sm h-100 text-center p-3">
+            <div class="card-body">
+              <div class="stat-icon mb-2"><i class="bi bi-person-check"></i></div>
+              <h3>140</h3>
+              <p class="text-muted mb-0">Seats Available</p>
+            </div>
+          </div>
+        </div>
+        <!-- Column 3 -->
+        <div class="col-sm-3">
+          <div class="card stat-card shadow-sm h-100 text-center p-3">
+            <div class="card-body">
+              <div class="stat-icon mb-2"><i class="bi bi-tags"></i></div>
+              <h3>4</h3>
+              <p class="text-muted mb-0">Categories</p>
+            </div>
+          </div>
+        </div>
+        <!-- Column 4 -->
+        <div class="col-sm-3">
+          <div class="card stat-card shadow-sm h-100 text-center p-3">
+            <div class="card-body">
+              <div class="stat-icon mb-2"><i class="bi bi-geo-alt"></i></div>
+              <h3>5</h3>
+              <p class="text-muted mb-0">Locations</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — COLUMN REORDERING (Ex 5.2)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 5.2 — Column reordering with order-md-* -->
+  <section id="reordering" class="py-5">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-arrow-left-right me-2"></i>Section 3 — Column Reordering</h2>
+        <small>Exercise 5.2 — Swap columns between mobile and desktop using order-md-*</small>
+      </div>
+
+      <div class="order-note mb-3">
+        <i class="bi bi-info-circle me-1"></i>
+        <strong>Behaviour:</strong> On mobile, <em>Quick Register</em> appears first (order-1). On desktop, <em>Event Description</em> is first (order-md-1).
+      </div>
+
+      <div class="row g-4">
+        <!-- Left on desktop (order-md-1), Right/Bottom on mobile (order-2) -->
+        <div class="col-md-7 order-2 order-md-1">
+          <div class="card h-100 border-0 shadow-sm" style="background:var(--clr-teal);">
+            <div class="card-body p-4 text-white">
+              <h5 class="fw-bold mb-2"><i class="bi bi-card-text me-2"></i>Event Description</h5>
+              <p class="mb-2 opacity-75">order-md-1 on desktop · order-2 on mobile</p>
+              <p class="mb-0">
+                Join us for the annual <strong>Maplewood Cultural Fair</strong> — a celebration of art,
+                music, and local crafts at Riverside Park. Open to all ages; free entry for children
+                under 12. Live performances, food stalls, and interactive workshops throughout the day.
+              </p>
+              <div class="mt-3 d-flex gap-2 flex-wrap">
+                <span class="badge rounded-pill bg-white text-success fw-semibold"><i class="bi bi-geo-alt me-1"></i>Riverside Park</span>
+                <span class="badge rounded-pill bg-white text-primary fw-semibold"><i class="bi bi-calendar me-1"></i>June 15, 2026</span>
+                <span class="badge rounded-pill bg-white text-warning fw-semibold"><i class="bi bi-people me-1"></i>200 seats</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Right on desktop (order-md-2), First on mobile (order-1) -->
+        <div class="col-md-5 order-1 order-md-2">
+          <div class="card h-100 border-0 shadow-sm">
+            <div class="card-header py-3 fw-bold" style="background:var(--clr-amber);color:var(--clr-charcoal);">
+              <i class="bi bi-lightning-charge me-2"></i>Quick Register
+              <span class="badge bg-white text-dark ms-2 fw-normal" style="font-size:.75rem;">order-1 on mobile</span>
+            </div>
+            <div class="card-body p-4">
+              <p class="text-muted small mb-3">Secure your spot in under 30 seconds. No account needed for free events.</p>
+              <div class="mb-3">
+                <label for="qr-name" class="form-label small fw-semibold">Full Name</label>
+                <input type="text" class="form-control form-control-sm" id="qr-name" placeholder="e.g. Arun Kumar" />
+              </div>
+              <div class="mb-3">
+                <label for="qr-email" class="form-label small fw-semibold">Email</label>
+                <input type="email" class="form-control form-control-sm" id="qr-email" placeholder="you@example.com" />
+              </div>
+              <button type="button" class="btn btn-sm w-100 fw-bold" style="background:var(--clr-teal);color:#fff;">
+                <i class="bi bi-calendar-check me-1"></i>Register Now
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — COLOR DASHBOARD (Ex 13.1)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 13.1 — Bootstrap contextual background colours -->
+  <section id="colors" class="py-4" style="background:rgba(26,107,107,0.04);">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-palette me-2"></i>Section 4 — Color Dashboard</h2>
+        <small>Exercise 13.1 — Bootstrap contextual colour utilities (bg-primary, bg-success, bg-warning, bg-danger)</small>
+      </div>
+
+      <div class="card shadow-sm border-0 overflow-hidden">
+        <div class="d-flex flex-wrap">
+          <!-- bg-primary -->
+          <div class="dash-box p-4 text-center bg-primary text-white">
+            <i class="bi bi-calendar-event fs-2 mb-2 d-block opacity-75"></i>
+            <h2 class="fw-bold mb-1">6</h2>
+            <small class="text-uppercase" style="letter-spacing:.06em;">Total Events</small>
+          </div>
+          <!-- bg-success -->
+          <div class="dash-box p-4 text-center bg-success text-white">
+            <i class="bi bi-person-check fs-2 mb-2 d-block opacity-75"></i>
+            <h2 class="fw-bold mb-1">124</h2>
+            <small class="text-uppercase" style="letter-spacing:.06em;">Registered</small>
+          </div>
+          <!-- bg-warning -->
+          <div class="dash-box p-4 text-center bg-warning text-dark">
+            <i class="bi bi-hourglass-split fs-2 mb-2 d-block opacity-75"></i>
+            <h2 class="fw-bold mb-1">4</h2>
+            <small class="text-uppercase" style="letter-spacing:.06em;">Upcoming</small>
+          </div>
+          <!-- bg-danger -->
+          <div class="dash-box p-4 text-center bg-danger text-white">
+            <i class="bi bi-x-octagon fs-2 mb-2 d-block opacity-75"></i>
+            <h2 class="fw-bold mb-1">2</h2>
+            <small class="text-uppercase" style="letter-spacing:.06em;">Cancelled</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 5 — LOGIN FORM (Ex 8.2)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 8.2 — Floating labels login form -->
+  <section id="forms" class="py-5">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-ui-checks me-2"></i>Section 5 — Login Form with Floating Labels</h2>
+        <small>Exercise 8.2 — form-floating inputs with email and password fields</small>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <div class="card shadow border-0" style="max-width:400px;width:100%;">
+          <div class="card-header py-3 text-white fw-bold d-flex align-items-center gap-2" style="background:var(--clr-teal);">
+            <i class="bi bi-person-lock fs-5"></i>
+            <span>Member Login</span>
+          </div>
+          <div class="card-body p-4">
+            <form id="login-form" novalidate>
+              <!-- Floating Label — Email -->
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="login-email"
+                  placeholder="name@example.com"
+                  autocomplete="email"
+                  required
+                />
+                <label for="login-email"><i class="bi bi-envelope me-1"></i>Email address</label>
+              </div>
+              <!-- Floating Label — Password -->
+              <div class="form-floating mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="login-password"
+                  placeholder="Password"
+                  autocomplete="current-password"
+                  required
+                />
+                <label for="login-password"><i class="bi bi-lock me-1"></i>Password</label>
+              </div>
+              <!-- Remember me -->
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="rememberMe" />
+                <label class="form-check-label small text-muted" for="rememberMe">Remember me on this device</label>
+              </div>
+              <!-- Submit -->
+              <button type="submit" class="btn w-100 fw-semibold" style="background:var(--clr-teal);color:#fff;" id="login-btn">
+                <i class="bi bi-box-arrow-in-right me-1"></i>Login
+              </button>
+            </form>
+          </div>
+          <div class="card-footer bg-transparent text-center py-3">
+            <a href="#" class="text-muted small"><i class="bi bi-question-circle me-1"></i>Forgot password?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 6 — ALL BUTTON TYPES (Ex 9.1)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 9.1 — Bootstrap button variants -->
+  <section id="buttons" class="py-4" style="background:rgba(26,107,107,0.04);">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-hand-index me-2"></i>Section 6 — All Button Types</h2>
+        <small>Exercise 9.1 — Solid, outline, and icon buttons</small>
+      </div>
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+          <div class="d-flex flex-wrap gap-2 align-items-center">
+            <!-- Solid variants -->
+            <button type="button" class="btn btn-primary me-2 mb-2" id="btn-register">
+              <i class="bi bi-calendar-check me-1"></i>Register
+            </button>
+            <button type="button" class="btn btn-secondary me-2 mb-2" id="btn-view-details">
+              View Details
+            </button>
+            <button type="button" class="btn btn-success me-2 mb-2" id="btn-confirmed">
+              <i class="bi bi-check-circle me-1"></i>Confirmed
+            </button>
+            <button type="button" class="btn btn-danger me-2 mb-2" id="btn-cancel">
+              <i class="bi bi-x-circle me-1"></i>Cancel
+            </button>
+            <button type="button" class="btn btn-warning me-2 mb-2" id="btn-almost-full">
+              <i class="bi bi-exclamation-triangle me-1"></i>Almost Full
+            </button>
+            <!-- Outline variants -->
+            <button type="button" class="btn btn-outline-primary me-2 mb-2" id="btn-learn-more">
+              Learn More
+            </button>
+            <button type="button" class="btn btn-outline-danger me-2 mb-2" id="btn-remove">
+              Remove
+            </button>
+          </div>
+
+          <hr class="my-3" />
+
+          <h6 class="fw-semibold mb-2 text-muted small text-uppercase">Sized buttons</h6>
+          <div class="d-flex flex-wrap gap-2 align-items-center">
+            <button class="btn btn-sm btn-primary" id="btn-sm">Small</button>
+            <button class="btn btn-primary" id="btn-md">Default</button>
+            <button class="btn btn-lg btn-primary" id="btn-lg">Large</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 7 — BUTTON GROUPS (Ex 9.2)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 9.2 — btn-group and toggle checkboxes -->
+  <section id="btn-groups" class="py-5">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-toggles me-2"></i>Section 7 — Button Groups &amp; Filters</h2>
+        <small>Exercise 9.2 — btn-group, btn-check toggle buttons</small>
+      </div>
+
+      <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white fw-semibold py-3" style="border-bottom:1px solid rgba(26,107,107,0.15);">
+          <i class="bi bi-funnel me-2" style="color:var(--clr-teal);"></i>Category Quick-Filter
+        </div>
+        <div class="card-body p-4">
+          <!-- Category btn-group -->
+          <div class="btn-group" role="group" aria-label="Category filter" id="category-filter">
+            <button type="button" class="btn btn-outline-primary active" id="filter-all">All</button>
+            <button type="button" class="btn btn-outline-primary" id="filter-music">Music</button>
+            <button type="button" class="btn btn-outline-primary" id="filter-workshop">Workshop</button>
+            <button type="button" class="btn btn-outline-primary" id="filter-health">Health</button>
+            <button type="button" class="btn btn-outline-primary" id="filter-education">Education</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-white fw-semibold py-3" style="border-bottom:1px solid rgba(26,107,107,0.15);">
+          <i class="bi bi-toggle-on me-2" style="color:var(--clr-teal);"></i>Toggle Filters (Checkbox btn-check)
+        </div>
+        <div class="card-body p-4">
+          <!-- Toggle checkbox btn-group -->
+          <div class="btn-group" role="group" aria-label="Event type toggles">
+            <input type="checkbox" class="btn-check" id="tog-free" autocomplete="off" />
+            <label class="btn btn-outline-success" for="tog-free"><i class="bi bi-tag me-1"></i>Free Events</label>
+
+            <input type="checkbox" class="btn-check" id="tog-music" autocomplete="off" />
+            <label class="btn btn-outline-primary" for="tog-music"><i class="bi bi-music-note me-1"></i>Music</label>
+
+            <input type="checkbox" class="btn-check" id="tog-weekend" autocomplete="off" />
+            <label class="btn btn-outline-warning" for="tog-weekend"><i class="bi bi-sun me-1"></i>Weekends</label>
+          </div>
+          <p class="text-muted small mt-3 mb-0">
+            <i class="bi bi-info-circle me-1"></i>Click/tap buttons to toggle — multiple selections allowed.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 8 — TABS AND PILLS (Ex 10.2)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 10.2 — nav-tabs and nav-pills with tab-content -->
+  <section id="tabs" class="py-4" style="background:rgba(26,107,107,0.04);">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-layout-tabs me-2"></i>Section 8 — Tabs and Pills</h2>
+        <small>Exercise 10.2 — nav-tabs and nav-pills with dynamic tab panes</small>
+      </div>
+
+      <!-- NAV TABS -->
+      <div class="mb-5">
+        <h6 class="fw-semibold mb-3" style="color:var(--clr-charcoal);">
+          <i class="bi bi-calendar-week me-1" style="color:var(--clr-teal);"></i>Events — Tab Navigation
+        </h6>
+
+        <ul class="nav nav-tabs" id="eventTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming-pane" type="button" role="tab" aria-controls="upcoming-pane" aria-selected="true">
+              <i class="bi bi-calendar-check me-1"></i>Upcoming Events
+              <span class="badge rounded-pill ms-1" style="background:var(--clr-teal);color:#fff;font-size:.7rem;">2</span>
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="past-tab" data-bs-toggle="tab" data-bs-target="#past-pane" type="button" role="tab" aria-controls="past-pane" aria-selected="false">
+              <i class="bi bi-clock-history me-1"></i>Past Events
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="eventTabsContent">
+          <!-- Upcoming tab pane -->
+          <div class="tab-pane fade show active" id="upcoming-pane" role="tabpanel" aria-labelledby="upcoming-tab">
+            <div class="table-responsive">
+              <table class="table table-hover mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col"><i class="bi bi-calendar me-1 text-muted"></i>Date</th>
+                    <th scope="col"><i class="bi bi-tag me-1 text-muted"></i>Event Name</th>
+                    <th scope="col"><i class="bi bi-info-circle me-1 text-muted"></i>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-muted small">June 15, 2026</td>
+                    <td class="fw-semibold">Maplewood Cultural Fair</td>
+                    <td><span class="badge bg-success rounded-pill">Open</span></td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted small">June 22, 2026</td>
+                    <td class="fw-semibold">Summer Music Concert</td>
+                    <td><span class="badge bg-warning text-dark rounded-pill">Almost Full</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- Past tab pane -->
+          <div class="tab-pane fade" id="past-pane" role="tabpanel" aria-labelledby="past-tab">
+            <div class="text-center py-4 text-muted">
+              <i class="bi bi-inbox fs-1 d-block mb-2 opacity-50"></i>
+              No past events to display.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAV PILLS -->
+      <div>
+        <h6 class="fw-semibold mb-3" style="color:var(--clr-charcoal);">
+          <i class="bi bi-collection me-1" style="color:var(--clr-teal);"></i>Category — Pills Navigation
+        </h6>
+
+        <ul class="nav nav-pills mb-0" id="categoryPills" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pill-music-tab" data-bs-toggle="tab" data-bs-target="#pill-music-pane" type="button" role="tab">
+              Music <span class="badge bg-white text-primary ms-1">3</span>
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pill-workshop-tab" data-bs-toggle="tab" data-bs-target="#pill-workshop-pane" type="button" role="tab">
+              Workshop <span class="badge bg-white text-primary ms-1">2</span>
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pill-health-tab" data-bs-toggle="tab" data-bs-target="#pill-health-pane" type="button" role="tab">
+              Health <span class="badge bg-white text-primary ms-1">1</span>
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pill-edu-tab" data-bs-toggle="tab" data-bs-target="#pill-edu-pane" type="button" role="tab">
+              Education <span class="badge bg-white text-primary ms-1">2</span>
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content pill-content" id="categoryPillsContent">
+          <div class="tab-pane fade show active" id="pill-music-pane" role="tabpanel">
+            <p class="mb-0 text-muted"><i class="bi bi-music-note-list me-2 text-primary"></i>
+              Showing <strong>3 Music events</strong> — Summer Concert, Folk Festival, Jazz Evening.
+            </p>
+          </div>
+          <div class="tab-pane fade" id="pill-workshop-pane" role="tabpanel">
+            <p class="mb-0 text-muted"><i class="bi bi-tools me-2 text-primary"></i>
+              Showing <strong>2 Workshop events</strong> — Photography Basics, Urban Gardening.
+            </p>
+          </div>
+          <div class="tab-pane fade" id="pill-health-pane" role="tabpanel">
+            <p class="mb-0 text-muted"><i class="bi bi-heart-pulse me-2 text-primary"></i>
+              Showing <strong>1 Health event</strong> — Community Yoga Day.
+            </p>
+          </div>
+          <div class="tab-pane fade" id="pill-edu-pane" role="tabpanel">
+            <p class="mb-0 text-muted"><i class="bi bi-book me-2 text-primary"></i>
+              Showing <strong>2 Education events</strong> — Science Fair, Digital Literacy Workshop.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 9 — MEDIA OBJECT / ORGANIZER (Ex 11.2)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 11.2 — d-flex media object / organizer cards -->
+  <section id="organizers" class="py-5">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-people me-2"></i>Section 9 — Organizer Cards (Media Object)</h2>
+        <small>Exercise 11.2 — d-flex layout with rounded avatar and text block</small>
+      </div>
+
+      <div class="row g-4">
+        <!-- Organizer 1 — Jane Doe -->
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-start">
+                <img
+                  src="https://placehold.co/64x64/1A6B6B/fff?text=JD"
+                  class="rounded-circle border border-primary border-3 me-3 avatar-circle"
+                  alt="Jane Doe, Event Organizer"
+                />
+                <div>
+                  <h5 class="fw-bold mb-0" style="color:var(--clr-charcoal);">Jane Doe</h5>
+                  <p class="text-muted small mb-2">Event Organizer — City of Maplewood</p>
+                  <p class="mb-0 small">
+                    Jane has been organizing community events since 2018. She specializes in civic
+                    engagement and cultural events.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Organizer 2 — Arjun Mehta -->
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-start">
+                <img
+                  src="https://placehold.co/64x64/E8A020/fff?text=AM"
+                  class="rounded-circle border border-warning border-3 me-3 avatar-circle"
+                  alt="Arjun Mehta, Music Coordinator"
+                />
+                <div>
+                  <h5 class="fw-bold mb-0" style="color:var(--clr-charcoal);">Arjun Mehta</h5>
+                  <p class="text-muted small mb-2">Music Coordinator — Arts Council</p>
+                  <p class="mb-0 small">
+                    Arjun curates the music lineup for all major city events. He brings local talent
+                    and touring artists together.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Organizer 3 — Priya Sharma -->
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-start">
+                <img
+                  src="https://placehold.co/64x64/2C2C2C/fff?text=PS"
+                  class="rounded-circle border border-secondary border-3 me-3 avatar-circle"
+                  alt="Priya Sharma, Health Programs Lead"
+                />
+                <div>
+                  <h5 class="fw-bold mb-0" style="color:var(--clr-charcoal);">Priya Sharma</h5>
+                  <p class="text-muted small mb-2">Health Programs Lead — City Wellness</p>
+                  <p class="mb-0 small">
+                    Priya leads health and wellness initiatives including yoga camps, nutrition
+                    workshops, and mental health awareness drives.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Organizer 4 — Ravi Nair -->
+        <div class="col-md-4">
+          <div class="card shadow-sm border-0 h-100">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-start">
+                <img
+                  src="https://placehold.co/64x64/0d6efd/fff?text=RN"
+                  class="rounded-circle border border-info border-3 me-3 avatar-circle"
+                  alt="Ravi Nair, Tech Education Lead"
+                />
+                <div>
+                  <h5 class="fw-bold mb-0" style="color:var(--clr-charcoal);">Ravi Nair</h5>
+                  <p class="text-muted small mb-2">Tech Education Lead — DigiMaplewood</p>
+                  <p class="mb-0 small">
+                    Ravi designs and delivers digital literacy programmes for all age groups,
+                    bridging the technology gap in the community.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 10 — PRICING CARDS (Ex 12.2)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 12.2 — Pricing tier cards with Bootstrap spacing utilities -->
+  <section id="pricing" class="py-4" style="background:rgba(26,107,107,0.04);">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-credit-card me-2"></i>Section 10 — Pricing Cards</h2>
+        <small>Exercise 12.2 — Bootstrap spacing utilities (m-*, p-*, py-*, px-*) with pricing tiers</small>
+      </div>
+
+      <div class="row justify-content-center g-4 align-items-stretch">
+
+        <!-- Free Tier -->
+        <div class="col-md-4">
+          <div class="pricing-card pricing-free h-100">
+            <div class="card-header bg-success text-white py-3 text-center border-0">
+              <h5 class="fw-bold mb-0"><i class="bi bi-gift me-2"></i>Free</h5>
+            </div>
+            <div class="card-body py-5 px-4 bg-white">
+              <div class="price text-center py-4">
+                ₹<span>0</span>
+                <div class="text-muted fs-6 fw-normal mt-1">Forever free</div>
+              </div>
+              <ul class="feature-list mb-4">
+                <li><i class="bi bi-check text-success me-2 fw-bold"></i>Basic Registration</li>
+                <li><i class="bi bi-check text-success me-2 fw-bold"></i>Event Calendar</li>
+                <li><i class="bi bi-check text-success me-2 fw-bold"></i>Email Reminder</li>
+                <li class="text-muted"><i class="bi bi-dash me-2"></i>Priority Registration</li>
+                <li class="text-muted"><i class="bi bi-dash me-2"></i>VIP Seating</li>
+              </ul>
+              <div class="d-grid">
+                <button class="btn btn-outline-success fw-semibold" id="pricing-free-btn">Get Started</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Standard Tier -->
+        <div class="col-md-4">
+          <div class="position-relative">
+            <div class="text-center mb-n2 position-relative" style="z-index:2;">
+              <span class="badge bg-warning text-dark px-3 py-2 rounded-pill shadow-sm fw-semibold">
+                <i class="bi bi-star-fill me-1"></i>Most Popular
+              </span>
+            </div>
+            <div class="pricing-card featured shadow h-100" style="margin-top:-0.75rem;">
+              <div class="card-header py-3 text-center border-0" style="background:var(--clr-teal);">
+                <h5 class="fw-bold mb-0 text-white"><i class="bi bi-lightning me-2"></i>Standard</h5>
+              </div>
+              <div class="card-body py-5 px-4 bg-white">
+                <div class="price text-center py-4" style="color:var(--clr-teal);">
+                  ₹<span>100</span>
+                  <div class="text-muted fs-6 fw-normal mt-1">per event</div>
+                </div>
+                <ul class="feature-list mb-4">
+                  <li><i class="bi bi-check text-success me-2 fw-bold"></i>Everything in Free</li>
+                  <li><i class="bi bi-check text-success me-2 fw-bold"></i>Priority Registration</li>
+                  <li><i class="bi bi-check text-success me-2 fw-bold"></i>Event Reminders</li>
+                  <li><i class="bi bi-check text-success me-2 fw-bold"></i>Organizer Contact</li>
+                  <li class="text-muted"><i class="bi bi-dash me-2"></i>VIP Seating</li>
+                </ul>
+                <div class="d-grid">
+                  <button class="btn fw-semibold" style="background:var(--clr-teal);color:#fff;" id="pricing-standard-btn">Register Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Premium Tier -->
+        <div class="col-md-4">
+          <div class="pricing-card shadow-sm h-100">
+            <div class="card-header bg-dark text-white py-3 text-center border-0">
+              <h5 class="fw-bold mb-0"><i class="bi bi-gem me-2"></i>Premium</h5>
+            </div>
+            <div class="card-body py-5 px-4 bg-white">
+              <div class="price text-center py-4">
+                ₹<span>200</span>
+                <div class="text-muted fs-6 fw-normal mt-1">per event</div>
+              </div>
+              <ul class="feature-list mb-4">
+                <li><i class="bi bi-check text-success me-2 fw-bold"></i>Everything in Standard</li>
+                <li><i class="bi bi-check text-success me-2 fw-bold"></i>VIP Seating</li>
+                <li><i class="bi bi-check text-success me-2 fw-bold"></i>Meet the Organizer</li>
+                <li><i class="bi bi-check text-success me-2 fw-bold"></i>Exclusive Events</li>
+                <li><i class="bi bi-check text-success me-2 fw-bold"></i>Priority Support</li>
+              </ul>
+              <div class="d-grid">
+                <button class="btn btn-outline-dark fw-semibold" id="pricing-premium-btn">Go Premium</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 11 — AVATAR CIRCLES (Ex 15.1)
+  ════════════════════════════════════════════ -->
+  <!-- Exercise 15.1 — Border utilities: border border-primary border-3 rounded-circle -->
+  <section id="avatars" class="py-5">
+    <div class="container">
+      <div class="section-hd">
+        <h2><i class="bi bi-person-circle me-2"></i>Section 11 — Avatar Circle Borders</h2>
+        <small>Exercise 15.1 — Bootstrap border utilities: border, border-primary, border-3, rounded-circle</small>
+      </div>
+
+      <div class="row g-4 text-center">
+        <!-- Speaker 1 -->
+        <div class="col-sm-3">
+          <div class="d-flex flex-column align-items-center">
+            <img
+              src="https://placehold.co/80x80/1A6B6B/fff?text=AS"
+              class="rounded-circle border border-primary border-3 avatar-lg mb-3"
+              alt="Ananya Singh, Community Speaker"
+            />
+            <h6 class="fw-bold mb-0" style="color:var(--clr-charcoal);">Ananya Singh</h6>
+            <small class="text-muted">Keynote Speaker</small>
+          </div>
+        </div>
+        <!-- Speaker 2 -->
+        <div class="col-sm-3">
+          <div class="d-flex flex-column align-items-center">
+            <img
+              src="https://placehold.co/80x80/E8A020/fff?text=KR"
+              class="rounded-circle border border-warning border-3 avatar-lg mb-3"
+              alt="Kiran Rao, Workshop Facilitator"
+            />
+            <h6 class="fw-bold mb-0" style="color:var(--clr-charcoal);">Kiran Rao</h6>
+            <small class="text-muted">Workshop Facilitator</small>
+          </div>
+        </div>
+        <!-- Speaker 3 -->
+        <div class="col-sm-3">
+          <div class="d-flex flex-column align-items-center">
+            <img
+              src="https://placehold.co/80x80/198754/fff?text=MT"
+              class="rounded-circle border border-success border-3 avatar-lg mb-3"
+              alt="Mohan Thomas, Health Advisor"
+            />
+            <h6 class="fw-bold mb-0" style="color:var(--clr-charcoal);">Mohan Thomas</h6>
+            <small class="text-muted">Health Advisor</small>
+          </div>
+        </div>
+        <!-- Speaker 4 -->
+        <div class="col-sm-3">
+          <div class="d-flex flex-column align-items-center">
+            <img
+              src="https://placehold.co/80x80/dc3545/fff?text=LP"
+              class="rounded-circle border border-danger border-3 avatar-lg mb-3"
+              alt="Lakshmi Pillai, Education Lead"
+            />
+            <h6 class="fw-bold mb-0" style="color:var(--clr-charcoal);">Lakshmi Pillai</h6>
+            <small class="text-muted">Education Lead</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="demo-footer py-4 mt-2">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-2 mb-md-0">
+          <i class="bi bi-bootstrap-fill me-2" style="color:var(--clr-amber);"></i>
+          &copy; 2026 Maplewood Community Portal — Built for Bootstrap 5 exercises.
+        </div>
+        <div class="col-md-6 text-md-end">
+          <a href="index.html"><i class="bi bi-arrow-left me-1"></i>Back to Portal</a>
+          &nbsp;&middot;&nbsp;
+          <a href="#">Top <i class="bi bi-arrow-up ms-1"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3.3 Bundle JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmU5F4gEGi1+sU8U0kPz7IfSzJB" crossorigin="anonymous"></script>
+
+</body>
+</html>

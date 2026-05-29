@@ -1,0 +1,119 @@
+/*!
+ * Community Event Portal — custom.scss
+ * =============================================================
+ * Exercise 19: Sass Customization
+ *
+ * HOW TO USE:
+ *   1. npm install bootstrap sass
+ *   2. Create this file alongside your project
+ *   3. Compile: npx sass custom.scss styles-compiled.css
+ *      Watch:   npx sass --watch custom.scss:styles.css
+ *
+ * BENEFIT: Override Bootstrap design tokens BEFORE compilation,
+ * producing a leaner, brand-aligned CSS bundle with no runtime
+ * specificity battles.
+ * =============================================================
+ */
+
+// ── 1. Override Bootstrap Sass variables (MUST come before @import) ──
+
+// Brand colours
+$primary:                  #1A6B6B;   // Teal
+$secondary:                #6c757d;
+$warning:                  #E8A020;   // Amber
+$success:                  #1A6B4A;
+$danger:                   #C0392B;
+$light:                    #F5F0E8;   // Cream
+$dark:                     #2C2C2C;   // Charcoal
+$info:                     #0dcaf0;
+
+// Body
+$body-bg:                  #F5F0E8;
+$body-color:               #2C2C2C;
+
+// Typography
+$font-family-sans-serif:   'DM Sans', system-ui, -apple-system, sans-serif;
+$font-size-base:           1rem;
+$headings-font-weight:     700;
+$lead-font-weight:         400;
+
+// Layout
+$border-radius:            0.375rem;
+$border-radius-lg:         0.5rem;
+$border-radius-pill:       50rem;
+
+// Cards
+$card-border-color:        #D9D1C0;
+$card-border-radius:       0.5rem;
+$card-cap-bg:              rgba(26, 107, 107, 0.06);
+
+// Navbar
+$navbar-dark-color:        rgba(255, 255, 255, 0.88);
+$navbar-dark-hover-color:  #E8A020;
+$navbar-dark-active-color: #ffffff;
+$navbar-dark-brand-color:  #ffffff;
+$navbar-padding-y:         0.75rem;
+
+// Buttons
+$btn-font-weight:          600;
+$btn-border-radius:        0.375rem;
+$btn-padding-x:            1.25rem;
+
+// Form
+$input-border-color:       #D9D1C0;
+$input-focus-border-color: #1A6B6B;
+$input-bg:                 #F5F0E8;
+$form-check-input-checked-bg-color: #1A6B6B;
+
+// Accordion
+$accordion-button-active-bg:    rgba(26, 107, 107, 0.08);
+$accordion-button-active-color: #1A6B6B;
+$accordion-border-color:        #D9D1C0;
+
+// Modal
+$modal-header-bg:          #1A6B6B;
+$modal-header-border-color: #145454;
+
+// Shadows
+$box-shadow-sm:            0 0.125rem 0.35rem rgba(26, 107, 107, 0.1);
+$box-shadow:               0 0.25rem 0.75rem rgba(26, 107, 107, 0.12);
+
+// ── 2. Import Bootstrap AFTER variable overrides ──────────────────
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// ── 3. Custom extensions & utilities ─────────────────────────────
+
+// Navbar
+.navbar-civic {
+  background-color: $primary;
+}
+
+// Event cards hover upgrade
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1.5rem rgba($primary, 0.18) !important;
+    border-color: $primary !important;
+  }
+}
+
+// Category badges
+.badge-category {
+  background-color: $warning;
+  color: #fff;
+}
+
+// Section header accent
+.section-hd {
+  border-left: 4px solid $primary;
+  background: linear-gradient(90deg, rgba($primary, 0.08) 0%, transparent 100%);
+}
+
+// Sidebar active category
+.sidebar-cat-btn.active {
+  background-color: $primary;
+  color: #fff;
+  border-color: $primary;
+}

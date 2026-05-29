@@ -6,703 +6,994 @@
   <meta name="description" content="Maplewood Local Community Event Portal — Find, register, and enjoy events in your neighbourhood." />
   <title>Maplewood Community Event Portal</title>
 
-  <!-- CSS Method #2: Internal <style> block — body background + welcomeBanner -->
+  <!-- Exercise 1.1 — Bootstrap 5 CDN -->
+  <!-- Bootstrap CDN used. If downloaded: /bootstrap/css/bootstrap.min.css,
+       /bootstrap/js/bootstrap.bundle.min.js, /bootstrap/icons/ -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossorigin="anonymous" />
+
+  <!-- Bootstrap Icons 1.11.3 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <!-- CSS Method #2: Internal <style> block — body background + welcomeBanner (HTML5 exercise) -->
   <style>
-    body {
-      background-color: #F5F0E8;
-    }
-    #welcomeBanner {
-      background-color: #1A6B6B;
-    }
+    body           { background-color: #F5F0E8; }
+    #welcomeBanner { background-color: #1A6B6B; }
   </style>
 
-  <!-- CSS Method #3: External stylesheet -->
+  <!-- CSS Method #3: External stylesheet (custom overrides on top of Bootstrap) -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- jQuery CDN (Req #14) -->
+  <!-- jQuery CDN (JS Exercise #14) -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
           integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
           crossorigin="anonymous"></script>
 </head>
 
-<!-- onbeforeunload warns if form has unsaved input -->
+<!-- onbeforeunload warns if form has unsaved input (HTML5 exercise) -->
 <body onbeforeunload="return warnUnsaved();">
 
-<!-- ===================== HEADER ===================== -->
-<header id="mainHeader">
-  <div class="header-inner">
-    <div class="logo-area">
-      <span class="org-label">City of Maplewood &mdash; Est. 1904</span>
-      <h1>Maplewood Community Portal</h1>
-    </div>
+<!-- ===================== HEADER / NAVBAR ===================== -->
+<!-- Exercise 10.1 — Responsive Bootstrap Navbar with hamburger toggler -->
+<!-- Exercise 6.1  — d-flex for nav link layout                         -->
+<nav class="navbar navbar-expand-md sticky-top" id="mainHeader" aria-label="Main navigation">
+  <div class="container">
 
-    <!-- Navigation -->
-    <nav aria-label="Main navigation">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#browse">Browse</a></li>
-        <li><a href="#events">Events</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#register">Register</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#help" class="nav-help">Help</a></li>
+    <!-- Brand / Logo -->
+    <a class="navbar-brand" href="#home">
+      <span class="d-block" style="font-size:0.6rem;font-weight:600;letter-spacing:2px;opacity:0.75;text-transform:uppercase;">City of Maplewood &mdash; Est. 1904</span>
+      <strong>CivicPortal</strong>
+    </a>
+
+    <!-- Hamburger toggler (mobile) -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navigation links -->
+    <div class="collapse navbar-collapse" id="navbarMain">
+      <!-- Exercise 6.1 — d-flex flex-column flex-md-row for link layout -->
+      <ul class="navbar-nav me-auto mb-2 mb-md-0 d-flex flex-column flex-md-row">
+        <li class="nav-item"><a class="nav-link text-uppercase" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link text-uppercase" href="#browse">Browse</a></li>
+        <li class="nav-item"><a class="nav-link text-uppercase" href="#events">Events</a></li>
+        <li class="nav-item"><a class="nav-link text-uppercase" href="#gallery">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link text-uppercase" href="#register">Register</a></li>
+        <li class="nav-item"><a class="nav-link text-uppercase" href="#contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link nav-help text-uppercase" href="#help">
+          <i class="bi bi-question-circle me-1"></i>Help</a></li>
       </ul>
-    </nav>
-    <!-- End Navigation -->
+      <!-- Search form on right -->
+      <form class="d-flex gap-2 mt-2 mt-md-0" role="search" onsubmit="return false;">
+        <input class="form-control form-control-sm" type="search" placeholder="Search events&hellip;" aria-label="Search" />
+        <button class="btn btn-sm btn-outline-light" type="submit">
+          <i class="bi bi-search me-1"></i> Search
+        </button>
+      </form>
+      <!-- Bootstrap Demo link -->
+      <a href="bootstrap-demo.html" target="_blank" class="btn btn-sm ms-2 mt-2 mt-md-0"
+         style="background:#E8A020;color:#fff;border:none;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;">
+        <i class="bi bi-grid-1x2 me-1"></i>BS Demo
+      </a>
+    </div>
   </div>
-</header>
+</nav>
+<!-- End Navigation -->
 
 <!-- ===================== MAIN ===================== -->
-<main class="page-wrap" aria-label="Main content">
+<main aria-label="Main content">
 
-  <!-- ===== HOME ===== -->
-  <section id="home" aria-labelledby="home-h">
+  <!-- ===== HOME — Hero + Static Event Cards ===== -->
+  <!-- Exercise 5.1 — justify-content-center align-items-center text-center -->
+  <!-- Exercise 13.2 — bg-dark bg-gradient hero                              -->
+  <!-- Exercise 3.1 — col-12 col-md-6 col-lg-3 responsive grid              -->
+  <!-- Exercise 11.1 — Bootstrap card with card-img-top                      -->
+  <!-- Exercise 15.2 — shadow-sm + shadow-lg on hover, rounded-pill badges   -->
+  <!-- Exercise 16.2 — position-relative + position-absolute badge overlay   -->
+  <section id="home" class="py-5" aria-labelledby="home-h">
+    <div class="container">
 
-    <!-- Welcome Banner: bg set via internal <style>; padding/border via external CSS -->
-    <div id="welcomeBanner">
-      <h2 id="home-h">Welcome to Your Community Hub</h2>
-      <p>
-        Official portal for <span class="highlight">local events</span>, civic meetings,
-        and neighbourhood activities in Maplewood.
-      </p>
-      <!-- CSS Method #1: Inline style — amber "Free Entry" badge -->
-      <p style="margin-top: 0.75rem;">
-        <span style="color: #E8A020; font-weight: bold; font-size: 1.05rem;">
-          &#9733; FREE ENTRY for all June events &mdash; Register now!
-        </span>
-      </p>
-    </div>
+      <!-- Hero banner — Exercise 5.1, 13.2 -->
+      <div class="row justify-content-center align-items-center text-center mb-4">
+        <div class="col-lg-8">
+          <div id="welcomeBanner" class="p-5 rounded text-white bg-dark bg-gradient">
+            <h1 id="home-h" class="fw-bold mb-3">Welcome to Your Community Hub</h1>
+            <p class="mb-2" style="color:rgba(255,255,255,0.85);">
+              Official portal for <span class="highlight">local events</span>, civic meetings,
+              and neighbourhood activities in Maplewood.
+            </p>
+            <!-- CSS Method #1: Inline style — amber badge (HTML5 exercise) -->
+            <p style="margin-top:0.75rem;">
+              <span style="color:#E8A020;font-weight:bold;font-size:1.05rem;">
+                &#9733; FREE ENTRY for all June events &mdash; Register now!
+              </span>
+            </p>
+          </div>
+          <!-- Tagline: hidden on mobile (Exercise 14.1) -->
+          <p class="text-muted mt-2 d-none d-md-block" style="font-size:0.82rem;">
+            <i class="bi bi-info-circle me-1"></i>
+            Maplewood Community Events &mdash; powered by City Hall &mdash; Est. 1904
+          </p>
+        </div>
+      </div>
 
-    <!-- Event Cards -->
-    <div class="section-hd">
-      <h2>Upcoming Events</h2>
-      <p>Mark your calendar</p>
-    </div>
+      <!-- Static event cards: col-12 col-md-6 col-lg-3 (Exercise 3.1) -->
+      <div class="row g-4 mt-2">
 
-    <div class="cards-row">
-      <article class="eventCard">
-        <span class="tag">Jun 7</span>
-        <h3>Town Hall Meeting</h3>
-        <p>Open forum with council members. Voice your concerns and shape our community.</p>
-        <span class="fee-tag">Free</span>
-      </article>
-      <article class="eventCard">
-        <span class="tag">Jun 14</span>
-        <h3>Summer Fair</h3>
-        <p>Local arts, food stalls, and live music at Central Park all day long.</p>
-        <span class="fee-tag">$5.00</span>
-      </article>
-      <article class="eventCard">
-        <span class="tag">Jun 21</span>
-        <h3>Youth Sports Day</h3>
-        <p>Annual sports carnival for ages 6&ndash;18. Football, cricket, and athletics.</p>
-        <span class="fee-tag">$10.00</span>
-      </article>
-      <article class="eventCard">
-        <span class="tag">Jun 28</span>
-        <h3>Heritage Walk</h3>
-        <p>Guided tour through Maplewood's historic quarter with a local historian.</p>
-        <span class="fee-tag">$8.00</span>
-      </article>
-    </div>
+        <!-- Card 1 — Town Hall Meeting -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <!-- Exercise 16.2: position-relative + position-absolute badge overlay -->
+          <div class="card h-100 shadow-sm position-relative">
+            <span class="badge bg-success position-absolute top-0 end-0 m-2 rounded-pill">Free</span>
+            <!-- Exercise 11.1: card-img-top -->
+            <img src="https://placehold.co/400x180/1A6B6B/ffffff?text=Town+Hall"
+                 class="card-img-top" alt="Town Hall Meeting — residents in council chamber" />
+            <div class="card-body">
+              <!-- Exercise 7.2: text-capitalize on category badge, rounded-pill -->
+              <span class="badge rounded-pill text-capitalize mb-2" style="background:#E8A020;">Civic</span>
+              <h5 class="card-title">Town Hall Meeting</h5>
+              <p class="card-text text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>Jun 7, 2026<br />
+                <i class="bi bi-geo-alt me-1"></i>Council Chambers
+              </p>
+            </div>
+            <!-- Exercise 6.2: d-flex justify-content-between align-items-center -->
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <span class="fw-bold text-success">Free</span>
+              <!-- Exercise 18.1: modal trigger -->
+              <button class="btn btn-primary btn-sm"
+                      data-bs-toggle="modal" data-bs-target="#registerModal"
+                      data-event-name="Town Hall Meeting"
+                      data-event-date="Jun 7, 2026"
+                      data-event-fee="Free">
+                <i class="bi bi-calendar-check me-1"></i> Register
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 — Summer Fair -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card h-100 shadow-sm position-relative">
+            <span class="badge bg-warning text-dark position-absolute top-0 end-0 m-2 rounded-pill">$5</span>
+            <img src="https://placehold.co/400x180/E8A020/ffffff?text=Summer+Fair"
+                 class="card-img-top" alt="Summer Fair — stalls and live music at Central Park" />
+            <div class="card-body">
+              <span class="badge rounded-pill text-capitalize mb-2" style="background:#E8A020;">Festival</span>
+              <h5 class="card-title">Summer Fair</h5>
+              <p class="card-text text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>Jun 14, 2026<br />
+                <i class="bi bi-geo-alt me-1"></i>Central Park
+              </p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <span class="fw-bold" style="color:#E8A020;">$5.00</span>
+              <button class="btn btn-primary btn-sm"
+                      data-bs-toggle="modal" data-bs-target="#registerModal"
+                      data-event-name="Summer Fair"
+                      data-event-date="Jun 14, 2026"
+                      data-event-fee="$5.00">
+                <i class="bi bi-calendar-check me-1"></i> Register
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 — Youth Sports Day -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card h-100 shadow-sm position-relative">
+            <span class="badge bg-info text-dark position-absolute top-0 end-0 m-2 rounded-pill">$10</span>
+            <img src="https://placehold.co/400x180/2E7D32/ffffff?text=Sports+Day"
+                 class="card-img-top" alt="Youth Sports Day — children on athletics track" />
+            <div class="card-body">
+              <span class="badge rounded-pill text-capitalize mb-2" style="background:#E8A020;">Sports</span>
+              <h5 class="card-title">Youth Sports Day</h5>
+              <p class="card-text text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>Jun 21, 2026<br />
+                <i class="bi bi-geo-alt me-1"></i>Maplewood Stadium
+              </p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <span class="fw-bold" style="color:#E8A020;">$10.00</span>
+              <button class="btn btn-primary btn-sm"
+                      data-bs-toggle="modal" data-bs-target="#registerModal"
+                      data-event-name="Youth Sports Day"
+                      data-event-date="Jun 21, 2026"
+                      data-event-fee="$10.00">
+                <i class="bi bi-calendar-check me-1"></i> Register
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 — Heritage Walk -->
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card h-100 shadow-sm position-relative">
+            <span class="badge bg-secondary position-absolute top-0 end-0 m-2 rounded-pill">$8</span>
+            <img src="https://placehold.co/400x180/5C4033/ffffff?text=Heritage+Walk"
+                 class="card-img-top" alt="Heritage Walk — guided tour through historic quarter" />
+            <div class="card-body">
+              <span class="badge rounded-pill text-capitalize mb-2" style="background:#E8A020;">History</span>
+              <h5 class="card-title">Heritage Walk</h5>
+              <p class="card-text text-muted small">
+                <i class="bi bi-calendar3 me-1"></i>Jun 28, 2026<br />
+                <i class="bi bi-geo-alt me-1"></i>Old Town Square
+              </p>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+              <span class="fw-bold" style="color:#E8A020;">$8.00</span>
+              <button class="btn btn-primary btn-sm"
+                      data-bs-toggle="modal" data-bs-target="#registerModal"
+                      data-event-name="Heritage Walk"
+                      data-event-date="Jun 28, 2026"
+                      data-event-fee="$8.00">
+                <i class="bi bi-calendar-check me-1"></i> Register
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /row cards -->
+    </div><!-- /container -->
   </section>
   <!-- End Home -->
 
   <!-- ===== BROWSE EVENTS (JS-powered) ===== -->
-  <section id="browse" aria-labelledby="browse-h">
-    <div class="section-hd">
-      <h2 id="browse-h">Browse &amp; Register</h2>
-      <p>Live search, filter by category, and register — powered by JavaScript</p>
-    </div>
+  <!-- Exercise 4.1 — Sidebar col-md-3 + Content col-md-9   -->
+  <!-- Exercise 9.2 — btn-group filter buttons in sidebar    -->
+  <!-- Exercise 14.1 — d-none d-lg-flex for stats bar       -->
+  <!-- Exercise 14.2 — d-none d-md-block for sidebar panel  -->
+  <section id="browse" class="py-4" style="background:rgba(245,240,232,0.5);" aria-labelledby="browse-h">
+    <div class="container">
 
-    <!-- Filter Bar -->
-    <div class="filter-bar">
-      <input
-        type="text"
-        id="searchBox"
-        placeholder="Search events&hellip;"
-        aria-label="Search events"
-      />
-      <select id="categoryFilter" aria-label="Filter by category">
-        <option value="All">All Categories</option>
-        <option value="Music">Music</option>
-        <option value="Workshop">Workshop</option>
-        <option value="Health">Health</option>
-        <option value="Education">Education</option>
-      </select>
-      <button id="resetFiltersBtn" class="btn btn-outline">&#8635; Reset Filters</button>
-    </div>
+      <div class="section-hd mb-4">
+        <h2 id="browse-h"><i class="bi bi-grid-3x3-gap me-2"></i>Browse &amp; Register</h2>
+        <p>Live search, filter by category &mdash; powered by JavaScript &amp; Bootstrap</p>
+      </div>
 
-    <!-- Stats bar -->
-    <div id="totalSeatsDisplay" class="stats-bar"></div>
-    <div id="categoryCount" class="stats-bar stats-accent"></div>
+      <!-- Mobile: category dropdown (Exercise 14.2 — sidebar hidden on mobile) -->
+      <div class="d-md-none mb-3">
+        <select class="form-select form-select-sm" id="mobileCatFilter" aria-label="Filter by category (mobile)">
+          <option value="All">All Categories</option>
+          <option value="Music">Music</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Health">Health</option>
+          <option value="Education">Education</option>
+        </select>
+      </div>
 
-    <!-- Loading spinner -->
-    <div id="loader" style="display:none;" aria-live="polite" aria-label="Loading events">
-      <span class="loader-spinner"></span>
-      <span>Loading events&hellip;</span>
-    </div>
+      <!-- Exercise 3.2 — row + col-* wrapping -->
+      <div class="row g-4">
 
-    <!-- Dynamic event cards injected here by main.js -->
-    <div id="eventsContainer" class="cards-row" aria-live="polite"></div>
+        <!-- Sidebar (Exercise 4.1, 14.2) — d-none d-md-block -->
+        <div class="col-md-3 d-none d-md-block">
+          <div class="card shadow-sm mb-3">
+            <div class="card-header">
+              <i class="bi bi-funnel me-1"></i> Categories
+            </div>
+            <!-- Exercise 9.2 — btn-group for category filter -->
+            <div class="list-group list-group-flush" role="group" aria-label="Category filters">
+              <button class="list-group-item list-group-item-action sidebar-cat-btn active" data-category="All">
+                <i class="bi bi-grid me-2"></i>All Events
+              </button>
+              <button class="list-group-item list-group-item-action sidebar-cat-btn" data-category="Music">
+                <i class="bi bi-music-note-beamed me-2"></i>Music
+              </button>
+              <button class="list-group-item list-group-item-action sidebar-cat-btn" data-category="Workshop">
+                <i class="bi bi-tools me-2"></i>Workshop
+              </button>
+              <button class="list-group-item list-group-item-action sidebar-cat-btn" data-category="Health">
+                <i class="bi bi-heart-pulse me-2"></i>Health
+              </button>
+              <button class="list-group-item list-group-item-action sidebar-cat-btn" data-category="Education">
+                <i class="bi bi-book me-2"></i>Education
+              </button>
+            </div>
+          </div>
 
+          <!-- Stats bar — d-none d-lg-block (Exercise 14.1) -->
+          <div class="d-none d-lg-block">
+            <div class="card shadow-sm p-3">
+              <div id="totalSeatsDisplay" class="stats-bar mb-1">
+                <i class="bi bi-people me-1"></i><span style="font-size:0.8rem;"></span>
+              </div>
+              <div id="categoryCount" class="stats-bar stats-accent">
+                <i class="bi bi-award me-1"></i><span style="font-size:0.8rem;"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main content area (Exercise 4.1) -->
+        <div class="col-md-9">
+          <!-- Filter bar -->
+          <div class="card shadow-sm mb-3">
+            <div class="card-body py-2">
+              <div class="d-flex gap-2 flex-wrap">
+                <input type="text" id="searchBox" class="form-control form-control-sm flex-grow-1"
+                       placeholder="Search events&hellip;" aria-label="Search events" />
+                <select id="categoryFilter" class="form-select form-select-sm" style="max-width:160px;" aria-label="Filter by category">
+                  <option value="All">All Categories</option>
+                  <option value="Music">Music</option>
+                  <option value="Workshop">Workshop</option>
+                  <option value="Health">Health</option>
+                  <option value="Education">Education</option>
+                </select>
+                <button id="resetFiltersBtn" class="btn btn-outline-secondary btn-sm">
+                  <i class="bi bi-arrow-counterclockwise me-1"></i>Reset
+                </button>
+              </div>
+              <!-- Stats bars on non-large screens -->
+              <div class="d-lg-none mt-2">
+                <div id="totalSeatsDisplay" class="stats-bar"></div>
+                <div id="categoryCount" class="stats-bar stats-accent"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Loading spinner (Exercise 1.1 Bootstrap bundle used here) -->
+          <div id="loader" style="display:none;" class="d-flex align-items-center justify-content-center py-4 text-muted gap-2" aria-live="polite">
+            <div class="spinner-border spinner-border-sm text-primary" role="status">
+              <span class="visually-hidden">Loading&hellip;</span>
+            </div>
+            <span>Loading events&hellip;</span>
+          </div>
+
+          <!-- Dynamic event cards (main.js injects here) -->
+          <div id="eventsContainer" class="cards-row" aria-live="polite"></div>
+        </div>
+
+      </div><!-- /row -->
+    </div><!-- /container -->
   </section>
   <!-- End Browse -->
 
-  <!-- ===== GALLERY ===== -->
-  <section id="gallery" aria-labelledby="gallery-h">
-    <div class="section-hd">
-      <h2 id="gallery-h">Event Gallery</h2>
-      <p>Double-click an image to enlarge it</p>
-    </div>
-
-    <!-- Table: 2 rows x 3 columns -->
-    <div class="gallery-wrap">
-      <table class="gallery-table" aria-label="Event photo gallery">
-        <caption>Community Event Photos &mdash; Maplewood 2025 Season</caption>
-        <tbody>
-          <tr>
-            <td>
-              <img
-                src="https://placehold.co/180x110/1A6B6B/ffffff?text=Town+Hall"
-                alt="Town Hall Meeting — residents seated in council chamber"
-                title="Town Hall 2025"
-                class="gallery-img"
-                ondblclick="toggleEnlarge(this)"
-              />
-            </td>
-            <td>
-              <img
-                src="https://placehold.co/180x110/E8A020/ffffff?text=Summer+Fair"
-                alt="Summer Fair — stalls and live music at Central Park"
-                title="Summer Fair 2025"
-                class="gallery-img"
-                ondblclick="toggleEnlarge(this)"
-              />
-            </td>
-            <td>
-              <img
-                src="https://placehold.co/180x110/2E7D32/ffffff?text=Sports+Day"
-                alt="Youth Sports Day — children running on the athletics track"
-                title="Youth Sports Day 2025"
-                class="gallery-img"
-                ondblclick="toggleEnlarge(this)"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                src="https://placehold.co/180x110/5C4033/ffffff?text=Heritage+Walk"
-                alt="Heritage Walk — guide leading group through historic streets"
-                title="Heritage Walk 2025"
-                class="gallery-img"
-                ondblclick="toggleEnlarge(this)"
-              />
-            </td>
-            <td>
-              <img
-                src="https://placehold.co/180x110/B71C1C/ffffff?text=Food+Festival"
-                alt="Food Festival — local vendors with traditional dishes"
-                title="Food Festival 2025"
-                class="gallery-img"
-                ondblclick="toggleEnlarge(this)"
-              />
-            </td>
-            <td>
-              <img
-                src="https://placehold.co/180x110/1A237E/ffffff?text=Concert+Night"
-                alt="Community Concert Night — outdoor stage under the stars"
-                title="Concert Night 2025"
-                class="gallery-img"
-                ondblclick="toggleEnlarge(this)"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- ===== IMAGE GALLERY ===== -->
+  <section id="gallery" class="py-4" aria-labelledby="gallery-h">
+    <div class="container">
+      <div class="section-hd">
+        <h2 id="gallery-h"><i class="bi bi-images me-2"></i>Event Gallery</h2>
+        <p>Double-click an image to enlarge it</p>
+      </div>
+      <div class="gallery-wrap">
+        <table class="gallery-table" aria-label="Event photo gallery">
+          <caption>Community Event Photos &mdash; Maplewood 2025 Season</caption>
+          <tbody>
+            <tr>
+              <td>
+                <img src="https://placehold.co/180x110/1A6B6B/ffffff?text=Town+Hall"
+                     alt="Town Hall Meeting — residents seated in council chamber"
+                     title="Town Hall 2025" class="gallery-img" ondblclick="toggleEnlarge(this)" />
+              </td>
+              <td>
+                <img src="https://placehold.co/180x110/E8A020/ffffff?text=Summer+Fair"
+                     alt="Summer Fair — stalls and live music at Central Park"
+                     title="Summer Fair 2025" class="gallery-img" ondblclick="toggleEnlarge(this)" />
+              </td>
+              <td>
+                <img src="https://placehold.co/180x110/2E7D32/ffffff?text=Sports+Day"
+                     alt="Youth Sports Day — children running on the athletics track"
+                     title="Youth Sports Day 2025" class="gallery-img" ondblclick="toggleEnlarge(this)" />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img src="https://placehold.co/180x110/5C4033/ffffff?text=Heritage+Walk"
+                     alt="Heritage Walk — guide leading group through historic streets"
+                     title="Heritage Walk 2025" class="gallery-img" ondblclick="toggleEnlarge(this)" />
+              </td>
+              <td>
+                <img src="https://placehold.co/180x110/B71C1C/ffffff?text=Food+Festival"
+                     alt="Food Festival — local vendors with traditional dishes"
+                     title="Food Festival 2025" class="gallery-img" ondblclick="toggleEnlarge(this)" />
+              </td>
+              <td>
+                <img src="https://placehold.co/180x110/1A237E/ffffff?text=Concert+Night"
+                     alt="Community Concert Night — outdoor stage under the stars"
+                     title="Concert Night 2025" class="gallery-img" ondblclick="toggleEnlarge(this)" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
   <!-- End Gallery -->
 
-  <!-- ===== REGISTER ===== -->
-  <section id="register" aria-labelledby="register-h">
-    <div class="section-hd">
-      <h2 id="register-h">Event Registration</h2>
-      <p>Fill in your details to secure a spot</p>
-    </div>
+  <!-- ===== REGISTRATION FORM ===== -->
+  <!-- Exercise 8.1 — form-control, form-check (terms), input-group (phone icon) -->
+  <!-- Exercise 5.1 — row justify-content-center centering                       -->
+  <!-- Exercise 12.1 — Bootstrap spacing utilities throughout                    -->
+  <section id="register" class="py-4" aria-labelledby="register-h">
+    <div class="container">
+      <div class="section-hd">
+        <h2 id="register-h"><i class="bi bi-person-plus me-2"></i>Event Registration</h2>
+        <p>Fill in your details to secure a spot</p>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-sm">
+            <div class="card-header">
+              <i class="bi bi-clipboard-check me-1"></i> Registration Form
+            </div>
+            <div class="card-body p-4">
+              <form id="regForm" novalidate>
+                <div class="row g-3">
 
-    <div class="form-box">
-      <form id="regForm" novalidate>
+                  <!-- Full Name -->
+                  <div class="col-md-6">
+                    <label for="fullName" class="form-label">Full Name *</label>
+                    <input type="text" id="fullName" name="fullName" class="form-control"
+                           placeholder="e.g. Jane Smith" required autofocus />
+                    <span class="field-error" id="nameError" aria-live="polite"></span>
+                  </div>
 
-        <div class="form-grid">
+                  <!-- Email -->
+                  <div class="col-md-6">
+                    <label for="emailAddr" class="form-label">Email Address *</label>
+                    <input type="email" id="emailAddr" name="emailAddr" class="form-control"
+                           placeholder="jane@example.com" required />
+                    <span class="field-error" id="emailError" aria-live="polite"></span>
+                  </div>
 
-          <!-- Name -->
-          <div class="form-group">
-            <label for="fullName">Full Name *</label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              placeholder="e.g. Jane Smith"
-              required
-              autofocus
-            />
-            <span class="field-error" id="nameError" aria-live="polite"></span>
-          </div>
+                  <!-- Phone with input-group icon prefix (Exercise 8.1) -->
+                  <div class="col-md-6">
+                    <label for="phoneNum" class="form-label">Phone Number</label>
+                    <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                      <input type="tel" id="phoneNum" name="phoneNum" class="form-control"
+                             placeholder="10-digit number" onblur="validatePhone(this)" />
+                    </div>
+                    <span class="phone-error" id="phoneError" aria-live="polite"></span>
+                  </div>
 
-          <!-- Email -->
-          <div class="form-group">
-            <label for="emailAddr">Email Address *</label>
-            <input
-              type="email"
-              id="emailAddr"
-              name="emailAddr"
-              placeholder="jane@example.com"
-              required
-            />
-            <span class="field-error" id="emailError" aria-live="polite"></span>
-          </div>
+                  <!-- Date -->
+                  <div class="col-md-6">
+                    <label for="eventDate" class="form-label">Preferred Date *</label>
+                    <input type="date" id="eventDate" name="eventDate" class="form-control" required />
+                  </div>
 
-          <!-- Phone -->
-          <div class="form-group">
-            <label for="phoneNum">Phone Number</label>
-            <input
-              type="tel"
-              id="phoneNum"
-              name="phoneNum"
-              placeholder="10-digit number"
-              onblur="validatePhone(this)"
-            />
-            <!-- Error span shown by inline JS on blur (HTML5 exercise) -->
-            <span class="phone-error" id="phoneError" aria-live="polite"></span>
-          </div>
+                  <!-- Event Type -->
+                  <div class="col-12">
+                    <label for="eventType" class="form-label">Event Type *</label>
+                    <select id="eventType" name="eventType" class="form-select" required
+                            onchange="onEventTypeChange(this)">
+                      <option value="" disabled selected>&mdash; Select an event &mdash;</option>
+                      <option value="town-hall"     data-fee="Free">Town Hall Meeting</option>
+                      <option value="summer-fair"   data-fee="$5.00">Summer Fair</option>
+                      <option value="sports-day"    data-fee="$10.00">Youth Sports Day</option>
+                      <option value="heritage-walk" data-fee="$8.00">Heritage Walk</option>
+                      <option value="food-festival" data-fee="$12.00">Food Festival</option>
+                      <option value="concert-night" data-fee="$15.00">Concert Night</option>
+                    </select>
+                    <span id="feeDisplay" class="form-text" aria-live="polite"
+                          style="color:#E8A020;font-weight:700;"></span>
+                    <span class="field-error" id="eventTypeError" aria-live="polite"></span>
+                  </div>
 
-          <!-- Date -->
-          <div class="form-group">
-            <label for="eventDate">Preferred Date *</label>
-            <input
-              type="date"
-              id="eventDate"
-              name="eventDate"
-              required
-            />
-          </div>
+                  <!-- Message textarea -->
+                  <div class="col-12">
+                    <label for="message" class="form-label">Message / Requirements</label>
+                    <textarea id="message" name="message" class="form-control"
+                              placeholder="Any accessibility needs or questions&hellip;"
+                              oninput="updateCharCount(this)" maxlength="400"></textarea>
+                    <span class="char-count form-text" id="charCount" aria-live="polite">0 / 400 characters</span>
+                  </div>
 
-          <!-- Event Type -->
-          <div class="form-group full">
-            <label for="eventType">Event Type *</label>
-            <select
-              id="eventType"
-              name="eventType"
-              required
-              onchange="onEventTypeChange(this)"
-            >
-              <option value="" disabled selected>&mdash; Select an event &mdash;</option>
-              <option value="town-hall"     data-fee="Free">Town Hall Meeting</option>
-              <option value="summer-fair"   data-fee="$5.00">Summer Fair</option>
-              <option value="sports-day"    data-fee="$10.00">Youth Sports Day</option>
-              <option value="heritage-walk" data-fee="$8.00">Heritage Walk</option>
-              <option value="food-festival" data-fee="$12.00">Food Festival</option>
-              <option value="concert-night" data-fee="$15.00">Concert Night</option>
-            </select>
-            <span id="feeDisplay" aria-live="polite"></span>
-            <span class="field-error" id="eventTypeError" aria-live="polite"></span>
-          </div>
+                  <!-- Terms checkbox (Exercise 8.1 — form-check) -->
+                  <div class="col-12">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="termsCheck" />
+                      <label class="form-check-label" for="termsCheck" style="font-size:0.88rem;">
+                        I agree to the <a href="#help" style="color:#1A6B6B;">terms and conditions</a>
+                        of Maplewood Community Events.
+                      </label>
+                    </div>
+                  </div>
 
-          <!-- Message / Feedback textarea -->
-          <div class="form-group full">
-            <label for="message">Message / Requirements</label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Any accessibility needs or questions&hellip;"
-              oninput="updateCharCount(this)"
-              maxlength="400"
-            ></textarea>
-            <span class="char-count" id="charCount" aria-live="polite">0 / 400 characters</span>
-          </div>
+                </div><!-- /row g-3 -->
 
-        </div><!-- /form-grid -->
+                <!-- Actions -->
+                <div class="mt-3 d-flex gap-2 flex-wrap">
+                  <!-- onclick removed — main.js handles via addEventListener -->
+                  <button type="submit" id="submitBtn" class="btn btn-primary">
+                    <i class="bi bi-calendar-check me-1"></i> Register Now
+                  </button>
+                  <button type="reset" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                  </button>
+                </div>
 
-        <!-- Actions -->
-        <div class="form-actions">
-          <!-- onclick removed — main.js handles via addEventListener (Req #11) -->
-          <button type="submit" id="submitBtn" class="btn btn-primary">
-            Register Now
-          </button>
-          <button type="reset" class="btn btn-outline">Reset</button>
-        </div>
+                <!-- Output: HTML5 exercise confirmation -->
+                <output id="formOutput" name="result" for="fullName emailAddr eventType"
+                        aria-live="assertive"></output>
 
-        <!-- Output: confirmation message (HTML5 exercise) -->
-        <output id="formOutput" name="result" for="fullName emailAddr eventType" aria-live="assertive"></output>
+                <!-- Registration API message (JS Exercise #12) -->
+                <div id="registrationMessage" class="reg-message" style="display:none;" aria-live="polite"></div>
 
-        <!-- Registration API message (JS exercise #12) -->
-        <div id="registrationMessage" class="reg-message" style="display:none;" aria-live="polite"></div>
-
-      </form>
-    </div>
+              </form>
+            </div><!-- /card-body -->
+          </div><!-- /card -->
+        </div><!-- /col -->
+      </div><!-- /row -->
+    </div><!-- /container -->
   </section>
   <!-- End Register -->
 
-  <!-- ===== EVENTS ===== -->
-  <section id="events" aria-labelledby="events-h">
-    <div class="section-hd">
-      <h2 id="events-h">Event Information</h2>
-      <p>Full schedule and fee details</p>
+  <!-- ===== EVENTS TABLE ===== -->
+  <section id="events" class="py-4" aria-labelledby="events-h">
+    <div class="container">
+      <div class="section-hd">
+        <h2 id="events-h"><i class="bi bi-calendar-range me-2"></i>Event Information</h2>
+        <p>Full schedule and fee details</p>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover" aria-label="Events schedule and fees">
+          <thead>
+            <tr>
+              <th>Event</th><th>Date</th><th>Venue</th><th>Fee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Town Hall Meeting</td><td>Jun 7, 2026</td><td>Council Chambers</td><td>Free</td></tr>
+            <tr><td>Summer Fair</td><td>Jun 14, 2026</td><td>Central Park</td><td>$5.00</td></tr>
+            <tr><td>Youth Sports Day</td><td>Jun 21, 2026</td><td>Maplewood Stadium</td><td>$10.00</td></tr>
+            <tr><td>Heritage Walk</td><td>Jun 28, 2026</td><td>Old Town Square</td><td>$8.00</td></tr>
+            <tr><td>Food Festival</td><td>Jul 5, 2026</td><td>Market Grounds</td><td>$12.00</td></tr>
+            <tr><td>Concert Night</td><td>Jul 12, 2026</td><td>Riverside Amphitheatre</td><td>$15.00</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
-    <table class="data-table" aria-label="Events schedule and fees">
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th>Date</th>
-          <th>Venue</th>
-          <th>Fee</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Town Hall Meeting</td>
-          <td>Jun 7, 2026</td>
-          <td>Council Chambers</td>
-          <td>Free</td>
-        </tr>
-        <tr>
-          <td>Summer Fair</td>
-          <td>Jun 14, 2026</td>
-          <td>Central Park</td>
-          <td>$5.00</td>
-        </tr>
-        <tr>
-          <td>Youth Sports Day</td>
-          <td>Jun 21, 2026</td>
-          <td>Maplewood Stadium</td>
-          <td>$10.00</td>
-        </tr>
-        <tr>
-          <td>Heritage Walk</td>
-          <td>Jun 28, 2026</td>
-          <td>Old Town Square</td>
-          <td>$8.00</td>
-        </tr>
-        <tr>
-          <td>Food Festival</td>
-          <td>Jul 5, 2026</td>
-          <td>Market Grounds</td>
-          <td>$12.00</td>
-        </tr>
-        <tr>
-          <td>Concert Night</td>
-          <td>Jul 12, 2026</td>
-          <td>Riverside Amphitheatre</td>
-          <td>$15.00</td>
-        </tr>
-      </tbody>
-    </table>
   </section>
 
   <!-- ===== VIDEO ===== -->
-  <section id="video" aria-labelledby="video-h">
-    <div class="section-hd">
-      <h2 id="video-h">Mayor's Invitation</h2>
-      <p>A message from Mayor Caldwell</p>
-    </div>
-
-    <div class="video-box">
-      <video
-        id="eventVideo"
-        controls
-        width="100%"
-        poster="https://placehold.co/800x400/1A6B6B/ffffff?text=Mayor%27s+Invitation"
-        oncanplay="onVideoReady()"
-        aria-label="Mayor's video invitation"
-      >
-        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
-        <p>Your browser does not support video. <a href="https://www.w3schools.com/html/mov_bbb.mp4">Download it here</a>.</p>
-      </video>
-      <p id="videoStatus" aria-live="polite"></p>
+  <section id="video" class="py-4" aria-labelledby="video-h">
+    <div class="container">
+      <div class="section-hd">
+        <h2 id="video-h"><i class="bi bi-play-circle me-2"></i>Mayor's Invitation</h2>
+        <p>A message from Mayor Caldwell</p>
+      </div>
+      <div class="card shadow-sm overflow-hidden">
+        <video id="eventVideo" controls width="100%"
+               poster="https://placehold.co/800x400/1A6B6B/ffffff?text=Mayor%27s+Invitation"
+               oncanplay="onVideoReady()" aria-label="Mayor's video invitation"
+               style="max-height:380px;background:#000;display:block;">
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+          <p>Your browser does not support video.
+            <a href="https://www.w3schools.com/html/mov_bbb.mp4">Download it here</a>.
+          </p>
+        </video>
+        <p id="videoStatus" class="px-3 py-2 mb-0 fw-semibold small" style="color:#1A6B4A;"></p>
+      </div>
     </div>
   </section>
 
   <!-- ===== GEOLOCATION ===== -->
-  <section id="geolocation" aria-labelledby="geo-h">
-    <div class="section-hd">
-      <h2 id="geo-h">Find Nearby Events</h2>
-      <p>Allow location access to see events near you</p>
-    </div>
-
-    <div class="geo-box">
-      <div>
-        <p style="margin-bottom: 0.9rem; font-size: 0.9rem;">
-          We'll use your device's GPS to find community events within 10 km.
-        </p>
-        <button class="btn btn-geo" id="geoBtn" onclick="findNearby()">
-          &#128205; Find Nearby Events
-        </button>
+  <!-- Exercise 17.2 — icon+text buttons -->
+  <section id="geolocation" class="py-4" aria-labelledby="geo-h">
+    <div class="container">
+      <div class="section-hd">
+        <h2 id="geo-h"><i class="bi bi-pin-map me-2"></i>Find Nearby Events</h2>
+        <p>Allow location access to see events near you</p>
       </div>
-      <div style="flex: 1; min-width: 200px;">
-        <div id="geoResult" aria-live="polite"></div>
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <div class="row align-items-start g-4">
+            <div class="col-md-6">
+              <p class="text-muted small mb-3">
+                We'll use your device's GPS to find community events within 10 km.
+              </p>
+              <!-- Exercise 17.2 — icon+text button -->
+              <button class="btn btn-warning" id="geoBtn" onclick="findNearby()">
+                <i class="bi bi-geo-alt me-1"></i> Find Nearby Events
+              </button>
+            </div>
+            <div class="col-md-6">
+              <div id="geoResult" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ===== PREFERENCES ===== -->
-  <section id="preferences" aria-labelledby="prefs-h">
-    <div class="section-hd">
-      <h2 id="prefs-h">Your Preferences</h2>
-      <p>Saved using localStorage</p>
-    </div>
-
-    <div class="prefs-bar">
-      <span class="label">Saved Event:</span>
-      <span id="savedPref">None yet</span>
-      <button class="btn btn-clear" id="clearBtn" onclick="clearPrefs()">
-        &#128465; Clear Preferences
-      </button>
+  <section id="preferences" class="py-4" aria-labelledby="prefs-h">
+    <div class="container">
+      <div class="section-hd">
+        <h2 id="prefs-h"><i class="bi bi-bookmark-star me-2"></i>Your Preferences</h2>
+        <p>Saved using localStorage</p>
+      </div>
+      <div class="card shadow-sm">
+        <div class="card-body d-flex align-items-center gap-3 flex-wrap py-3">
+          <span class="form-label mb-0">Saved Event:</span>
+          <span id="savedPref" class="fw-semibold" style="color:#1A6B6B;">None yet</span>
+          <!-- Exercise 17.2 — icon+text button -->
+          <button class="btn btn-outline-danger btn-sm ms-auto" id="clearBtn" onclick="clearPrefs()">
+            <i class="bi bi-trash me-1"></i> Clear Preferences
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ===== BULLETIN (Multi-column) ===== -->
-  <article id="bulletin" aria-labelledby="bulletin-h">
-    <div class="section-hd" style="margin-bottom: 0;">
-      <h2 id="bulletin-h">Community Bulletin Board</h2>
-      <p>Latest notices from City Hall</p>
-    </div>
-    <div class="bulletin-body">
-      <h3>Road Closure Notice</h3>
-      <p>
-        Main Street will be closed between Oak Avenue and Elm Drive from June 10&ndash;12
-        for pavement resurfacing. Residents are advised to use Riverside Road as an
-        alternative. We apologise for any inconvenience.
-      </p>
+  <!-- ===== PRICING (Bootstrap Exercise 12.2) ===== -->
+  <section id="pricing" class="py-5" style="background:rgba(245,240,232,0.6);" aria-labelledby="pricing-h">
+    <div class="container">
+      <div class="section-hd">
+        <h2 id="pricing-h"><i class="bi bi-tags me-2"></i>Event Pricing Tiers</h2>
+        <p>Choose the plan that suits you</p>
+      </div>
+      <div class="row justify-content-center g-4">
 
-      <h3>Park Renovation Update</h3>
-      <p>
-        The renovation of Central Park's east wing is on schedule. The new amphitheatre
-        and community garden will open for the Summer Fair on June 14th. Volunteers are
-        welcome &mdash; contact the Parks Department.
-      </p>
+        <!-- Free -->
+        <div class="col-md-4">
+          <div class="card pricing-card pricing-free h-100 shadow-sm">
+            <div class="card-header bg-success text-white text-center py-3">
+              <h5 class="mb-0"><i class="bi bi-gift me-2"></i>Free</h5>
+            </div>
+            <div class="card-body px-4 py-4 text-center">
+              <div class="price mb-3"><sup>&#8377;</sup>0</div>
+              <p class="text-muted small">Per event, no card required</p>
+              <ul class="list-unstyled text-start mb-4">
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Basic Registration</li>
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Event Calendar Access</li>
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Email Reminder</li>
+                <li class="py-1 text-muted"><i class="bi bi-x-circle me-2"></i>Priority Seating</li>
+              </ul>
+            </div>
+            <div class="card-footer text-center py-3">
+              <a href="#register" class="btn btn-outline-success w-100">
+                <i class="bi bi-arrow-right-circle me-1"></i> Get Started
+              </a>
+            </div>
+          </div>
+        </div>
 
-      <h3>Library Extended Hours</h3>
-      <p>
-        Maplewood Public Library will stay open until 9 PM on Tuesdays and Thursdays
-        throughout June to support exam season. Free study rooms can be booked online
-        via the council website.
-      </p>
+        <!-- Standard -->
+        <div class="col-md-4">
+          <div class="card pricing-card featured h-100 shadow">
+            <div class="card-header bg-primary text-white text-center py-3 position-relative">
+              <span class="badge bg-warning text-dark position-absolute top-0 start-50 translate-middle">Most Popular</span>
+              <h5 class="mb-0 mt-2"><i class="bi bi-star me-2"></i>Standard</h5>
+            </div>
+            <div class="card-body px-4 py-4 text-center">
+              <div class="price mb-3"><sup>&#8377;</sup>100</div>
+              <p class="text-muted small">Per event</p>
+              <ul class="list-unstyled text-start mb-4">
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Everything in Free</li>
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Priority Registration</li>
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Event Reminders</li>
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Organizer Contact</li>
+              </ul>
+            </div>
+            <div class="card-footer text-center py-3">
+              <a href="#register" class="btn btn-primary w-100">
+                <i class="bi bi-calendar-check me-1"></i> Register Now
+              </a>
+            </div>
+          </div>
+        </div>
 
-      <h3>Recycling Scheme Launch</h3>
-      <p>
-        The new food-waste programme launches June 1st. Green caddy bins are being
-        delivered to all households by May 30th. Collections will occur every Tuesday
-        alongside regular refuse collection.
-      </p>
+        <!-- Premium -->
+        <div class="col-md-4">
+          <div class="card pricing-card h-100 shadow-sm">
+            <div class="card-header bg-dark text-white text-center py-3">
+              <h5 class="mb-0"><i class="bi bi-trophy me-2"></i>Premium</h5>
+            </div>
+            <div class="card-body px-4 py-4 text-center">
+              <div class="price mb-3"><sup>&#8377;</sup>200</div>
+              <p class="text-muted small">Per event, VIP experience</p>
+              <ul class="list-unstyled text-start mb-4">
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Everything in Standard</li>
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>VIP Seating</li>
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Meet the Organizer</li>
+                <li class="py-1"><i class="bi bi-check-circle-fill text-success me-2"></i>Exclusive Events Access</li>
+              </ul>
+            </div>
+            <div class="card-footer text-center py-3">
+              <a href="#register" class="btn btn-outline-dark w-100">
+                <i class="bi bi-gem me-1"></i> Go Premium
+              </a>
+            </div>
+          </div>
+        </div>
 
-      <h3>Voter Registration Reminder</h3>
-      <p>
-        The local ward election is July 4th. Register to vote by June 10th at the
-        Electoral Registration Office or online. Polling stations open 7 AM&ndash;10 PM.
-      </p>
+      </div><!-- /row -->
+    </div><!-- /container -->
+  </section>
+
+  <!-- ===== COMMUNITY BULLETIN ===== -->
+  <article id="bulletin" class="py-4" aria-labelledby="bulletin-h">
+    <div class="container">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <i class="bi bi-newspaper me-1"></i> Community Bulletin Board
+          <span class="text-muted fw-normal" style="font-size:0.75rem;">&nbsp;&mdash;&nbsp;Latest notices from City Hall</span>
+        </div>
+        <div class="card-body p-4">
+          <div class="bulletin-body" id="bulletin-h">
+            <h3>Road Closure Notice</h3>
+            <p>Main Street will be closed between Oak Avenue and Elm Drive from June 10&ndash;12 for pavement
+               resurfacing. Residents are advised to use Riverside Road as an alternative.</p>
+            <h3>Park Renovation Update</h3>
+            <p>The renovation of Central Park's east wing is on schedule. The new amphitheatre and community
+               garden will open for the Summer Fair on June 14th. Volunteers are welcome.</p>
+            <h3>Library Extended Hours</h3>
+            <p>Maplewood Public Library will stay open until 9 PM on Tuesdays and Thursdays throughout June
+               to support exam season. Free study rooms can be booked online via the council website.</p>
+            <h3>Recycling Scheme Launch</h3>
+            <p>The new food-waste programme launches June 1st. Green caddy bins are being delivered to all
+               households by May 30th. Collections will occur every Tuesday alongside regular refuse collection.</p>
+            <h3>Voter Registration Reminder</h3>
+            <p>The local ward election is July 4th. Register to vote by June 10th at the Electoral Registration
+               Office or online. Polling stations open 7 AM&ndash;10 PM.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </article>
 
   <!-- ===== CONTACT ===== -->
-  <section id="contact" aria-labelledby="contact-h" style="margin-top: 3rem;">
-    <div class="section-hd">
-      <h2 id="contact-h">Contact Us</h2>
-      <p>Get in touch with the community office</p>
-    </div>
-
-    <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
-      <div class="eventCard" style="max-width: 280px;">
-        <h3>Community Office</h3>
-        <p>14 Civic Centre Drive<br>Maplewood, MW1 3AX</p>
-        <p>&#128222; +1 (800) 555-0140</p>
-        <p>&#9993; <a href="mailto:events@maplewood.gov" style="color: var(--accent);">events@maplewood.gov</a></p>
+  <section id="contact" class="py-4" aria-labelledby="contact-h">
+    <div class="container">
+      <div class="section-hd">
+        <h2 id="contact-h"><i class="bi bi-envelope me-2"></i>Contact Us</h2>
+        <p>Get in touch with the community office</p>
       </div>
-      <div class="eventCard" style="max-width: 280px;">
-        <h3>Office Hours</h3>
-        <p>Mon&ndash;Fri: 9:00 AM &ndash; 5:00 PM</p>
-        <p>Saturday: 10:00 AM &ndash; 2:00 PM</p>
-        <p>Sunday &amp; Public Holidays: Closed</p>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body p-4">
+              <h5 class="card-title"><i class="bi bi-building me-2"></i>Community Office</h5>
+              <p class="card-text text-muted small mb-1">14 Civic Centre Drive<br />Maplewood, MW1 3AX</p>
+              <p class="mb-1"><i class="bi bi-telephone me-2"></i>+1 (800) 555-0140</p>
+              <p class="mb-0"><i class="bi bi-envelope me-2"></i>
+                <a href="mailto:events@maplewood.gov" style="color:#E8A020;">events@maplewood.gov</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body p-4">
+              <h5 class="card-title"><i class="bi bi-clock me-2"></i>Office Hours</h5>
+              <p class="mb-1 small"><strong>Mon&ndash;Fri:</strong> 9:00 AM &ndash; 5:00 PM</p>
+              <p class="mb-1 small"><strong>Saturday:</strong> 10:00 AM &ndash; 2:00 PM</p>
+              <p class="mb-0 small text-muted"><strong>Sunday &amp; Public Holidays:</strong> Closed</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== HELP & FAQ ===== -->
-  <section id="help" aria-labelledby="help-h">
-    <div class="section-hd">
-      <!-- CSS Method #1 also demonstrated here: inline red heading -->
-      <h2 id="help-h" style="color: #C0392B;">Help &amp; FAQ</h2>
-      <p>Common questions about using the portal</p>
-    </div>
-
-    <!-- FAQ Cards -->
-    <div class="cards-row" style="flex-direction: column; gap: 0.9rem; margin-bottom: 2rem;">
-
-      <div class="eventCard" style="max-width: 100%;">
-        <h3>How do I register for an event?</h3>
-        <p style="margin-top: 0.35rem;">
-          Go to the <strong>Register</strong> section above. Fill in your name, email,
-          preferred date, and select an event type, then click <em>Register Now</em>.
-          A confirmation message will appear instantly on the page.
-        </p>
+  <!-- ===== HELP — FAQ Accordion (Exercise 18.2) ===== -->
+  <section id="help" class="py-4" style="background:rgba(245,240,232,0.5);" aria-labelledby="help-h">
+    <div class="container">
+      <div class="section-hd">
+        <!-- Inline style: red heading (HTML5 exercise CSS Method #1) -->
+        <h2 id="help-h" style="color:#C0392B;"><i class="bi bi-question-circle me-2"></i>Help &amp; FAQ</h2>
+        <p>Common questions about using the portal</p>
       </div>
 
-      <div class="eventCard" style="max-width: 100%;">
-        <h3>Do I need an account?</h3>
-        <p style="margin-top: 0.35rem;">
-          No account is needed. Just fill in the registration form. Your event preference
-          is saved automatically in your browser using localStorage for convenience.
-        </p>
+      <!-- Exercise 18.2 — Bootstrap Accordion -->
+      <div class="accordion shadow-sm mb-4" id="faqAccordion">
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true">
+              <i class="bi bi-person-plus me-2"></i> How do I register for an event?
+            </button>
+          </h2>
+          <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Go to the <strong>Register</strong> section on this page. Fill in your name, email,
+              preferred date, and select an event type, then click <em>Register Now</em>. A
+              confirmation message will appear instantly. You can also use the
+              <strong>Browse &amp; Register</strong> section to find specific events.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false">
+              <i class="bi bi-x-circle me-2"></i> Can I cancel my registration?
+            </button>
+          </h2>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Yes! In the <strong>Browse &amp; Register</strong> section, after registering for an
+              event, a <em>Cancel</em> button appears on the event card. Clicking it will restore
+              your seat and remove the registration. Cancellations must be made 48 hours before
+              the event date.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false">
+              <i class="bi bi-gift me-2"></i> Are events free?
+            </button>
+          </h2>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Some events like the <strong>Town Hall Meeting</strong> are completely free. Others
+              have a small entry fee (e.g., Summer Fair — $5, Youth Sports Day — $10). The fee is
+              displayed on each event card. June events are free as a special promotion &mdash;
+              check the welcome banner for current offers.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false">
+              <i class="bi bi-geo-alt me-2"></i> How do I find nearby events?
+            </button>
+          </h2>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Scroll to the <strong>Find Nearby Events</strong> section and click the
+              <em>Find Nearby Events</em> button. You must grant browser location permission.
+              If denied, reset it via your browser's Site Settings &rarr; Location. The feature
+              requires HTTPS or localhost to work.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false">
+              <i class="bi bi-hdd me-2"></i> How do I clear my saved preferences?
+            </button>
+          </h2>
+          <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              Scroll to the <strong>Your Preferences</strong> section and click
+              <em>Clear Preferences</em>. This removes all <code>localStorage</code> and
+              <code>sessionStorage</code> data stored by this portal.
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /accordion -->
+
+      <!-- Browser Support -->
+      <div class="card shadow-sm">
+        <div class="card-header"><i class="bi bi-browser-chrome me-1"></i> Browser Requirements</div>
+        <div class="card-body">
+          <div class="row g-2 text-center">
+            <div class="col-6 col-md-3">
+              <div class="p-2 rounded" style="background:rgba(26,107,107,0.07);">
+                <i class="bi bi-browser-chrome fs-4 text-primary d-block mb-1"></i>
+                <small>Chrome 100+</small>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="p-2 rounded" style="background:rgba(26,107,107,0.07);">
+                <i class="bi bi-browser-firefox fs-4 text-primary d-block mb-1"></i>
+                <small>Firefox 100+</small>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="p-2 rounded" style="background:rgba(26,107,107,0.07);">
+                <i class="bi bi-browser-edge fs-4 text-primary d-block mb-1"></i>
+                <small>Edge 100+</small>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="p-2 rounded" style="background:rgba(26,107,107,0.07);">
+                <i class="bi bi-browser-safari fs-4 text-primary d-block mb-1"></i>
+                <small>Safari 15+</small>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="eventCard" style="max-width: 100%;">
-        <h3>Why isn't the location feature working?</h3>
-        <p style="margin-top: 0.35rem;">
-          The <em>Find Nearby Events</em> button requires you to grant browser location
-          permission. If denied, reset it in your browser's Site Settings &rarr; Location.
-          The feature also requires HTTPS or localhost.
-        </p>
-      </div>
-
-      <div class="eventCard" style="max-width: 100%;">
-        <h3>How do I clear my saved preferences?</h3>
-        <p style="margin-top: 0.35rem;">
-          Scroll to the <strong>Your Preferences</strong> section and click
-          <em>Clear Preferences</em>. This removes all localStorage and sessionStorage data
-          stored by this portal.
-        </p>
-      </div>
-
-    </div>
-
-    <!-- Browser Support -->
-    <div class="section-hd">
-      <h2>Browser Requirements</h2>
-      <p>For full feature support</p>
-    </div>
-
-    <ul style="padding-left: 1.5rem; list-style-type: disc; margin-bottom: 2rem;">
-      <li style="padding: 0.3rem 0; color: #2C2C2C; font-size: 0.92rem;">Google Chrome 100+</li>
-      <li style="padding: 0.3rem 0; color: #2C2C2C; font-size: 0.92rem;">Mozilla Firefox 100+</li>
-      <li style="padding: 0.3rem 0; color: #2C2C2C; font-size: 0.92rem;">Microsoft Edge 100+</li>
-      <li style="padding: 0.3rem 0; color: #2C2C2C; font-size: 0.92rem;">Safari 15+</li>
-    </ul>
-
-    <!-- Event Fees Quick Reference Table -->
-    <div class="section-hd">
-      <h2>Event Fees Quick Reference</h2>
-      <p>All 2026 events at a glance</p>
-    </div>
-
-    <table class="data-table" aria-label="Event fees quick reference">
-      <thead>
-        <tr>
-          <th>Event</th>
-          <th>Date</th>
-          <th>Venue</th>
-          <th>Fee</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Town Hall Meeting</td>
-          <td>Jun 7, 2026</td>
-          <td>Council Chambers</td>
-          <td>Free</td>
-        </tr>
-        <tr>
-          <td>Summer Fair</td>
-          <td>Jun 14, 2026</td>
-          <td>Central Park</td>
-          <td>$5.00</td>
-        </tr>
-        <tr>
-          <td>Youth Sports Day</td>
-          <td>Jun 21, 2026</td>
-          <td>Maplewood Stadium</td>
-          <td>$10.00</td>
-        </tr>
-        <tr>
-          <td>Heritage Walk</td>
-          <td>Jun 28, 2026</td>
-          <td>Old Town Square</td>
-          <td>$8.00</td>
-        </tr>
-        <tr>
-          <td>Food Festival</td>
-          <td>Jul 5, 2026</td>
-          <td>Market Grounds</td>
-          <td>$12.00</td>
-        </tr>
-        <tr>
-          <td>Concert Night</td>
-          <td>Jul 12, 2026</td>
-          <td>Riverside Amphitheatre</td>
-          <td>$15.00</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Still need help -->
-    <div style="margin-top: 1.5rem; padding: 1rem 1.5rem; background: #fff; border: 1.5px solid var(--border); border-radius: var(--radius);">
-      <p style="font-size: 0.92rem; margin-bottom: 0;">
-        Still need help? &nbsp;
-        Email: <a href="mailto:events@maplewood.gov" style="color: var(--primary); font-weight: 600;">events@maplewood.gov</a>
-        &nbsp;&nbsp;|&nbsp;&nbsp;
-        Phone: <strong>+1 (800) 555-0140</strong> &nbsp;(Mon&ndash;Fri, 9 AM&ndash;5 PM)
-      </p>
-    </div>
-
+    </div><!-- /container -->
   </section>
   <!-- End Help -->
 
 </main>
 <!-- End Main -->
 
-<!-- ===================== FOOTER ===================== -->
-<!-- Footer -->
-<footer aria-label="Site footer">
-  <div class="footer-in">
-    <div class="footer-row">
-      <div class="footer-col">
-        <h3>Maplewood Portal</h3>
-        <p>Your official gateway to community events and civic updates in the City of Maplewood.</p>
+<!-- ===================== MODAL (Exercise 18.1) ===================== -->
+<!-- Bootstrap Modal — Confirm Registration -->
+<div class="modal fade" id="registerModal" tabindex="-1"
+     aria-labelledby="registerModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-white" id="registerModalLabel">
+          <i class="bi bi-calendar-check me-2"></i> Confirm Registration
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="footer-col">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#register">Register</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="#help">Help</a></li>
-        </ul>
+      <div class="modal-body">
+        <div class="alert alert-info mb-3 py-2">
+          <div class="small fw-semibold"><i class="bi bi-calendar3 me-1"></i>
+            Event: <span id="modalEventName" class="fw-bold">&mdash;</span></div>
+          <div class="small"><i class="bi bi-calendar2-event me-1"></i>
+            Date: <span id="modalEventDate">&mdash;</span></div>
+          <div class="small"><i class="bi bi-currency-dollar me-1"></i>
+            Fee: <span id="modalEventFee">&mdash;</span></div>
+        </div>
+        <div class="row g-2">
+          <div class="col-12">
+            <label class="form-label" style="font-size:0.78rem;">Your Name</label>
+            <input type="text" class="form-control form-control-sm" id="modalName"
+                   placeholder="Jane Smith" />
+          </div>
+          <div class="col-12">
+            <label class="form-label" style="font-size:0.78rem;">Email Address</label>
+            <input type="email" class="form-control form-control-sm" id="modalEmail"
+                   placeholder="jane@example.com" />
+          </div>
+        </div>
+        <p class="text-muted mt-3 mb-0" style="font-size:0.78rem;">
+          <i class="bi bi-lock me-1"></i>Your information is secure and will not be shared.
+        </p>
       </div>
-      <div class="footer-col">
-        <h3>Legal</h3>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Accessibility</a></li>
-          <li><a href="#">Terms of Use</a></li>
-        </ul>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-1"></i> Close
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="modalConfirmBtn">
+          <i class="bi bi-check-circle me-1"></i> Confirm Registration
+        </button>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 City of Maplewood. All rights reserved.</span>
-      <span>Built with HTML5 &amp; CSS3</span>
+  </div>
+</div>
+
+<!-- ===================== FOOTER (Exercise 16.1, 17.1) ===================== -->
+<!-- Exercise 16.1 — position-fixed bottom-0 w-100 (body has pb-5 for offset) -->
+<!-- Exercise 17.1 — Social icons using Bootstrap Icons                       -->
+<footer id="siteFooter" class="position-fixed bottom-0 w-100" aria-label="Site footer">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 py-1">
+      <!-- Exercise 7.2: text-lowercase on footer tagline -->
+      <span class="text-lowercase" style="color:rgba(255,255,255,0.5);font-size:0.78rem;">
+        &copy; 2026 city of maplewood. all rights reserved. &mdash; built with html5, css3 &amp; bootstrap 5
+      </span>
+      <!-- Exercise 17.1 — Social icon links -->
+      <div class="d-flex gap-3">
+        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" aria-label="Twitter / X"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+      </div>
     </div>
   </div>
 </footer>
 <!-- End Footer -->
 
-<!-- ===================== JAVASCRIPT ===================== -->
+<!-- ===================== SCRIPTS ===================== -->
+
+<!-- Exercise 1.1, 2.2 — Bootstrap bundle (includes Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmrSjbljnLBONpqEsq+kGBE1kS+"
+        crossorigin="anonymous"></script>
+
+<!-- ===================== INLINE SCRIPT (HTML5 Exercise functions) ===================== -->
 <script>
   // Open Chrome DevTools > Console to debug
 
-  /* ---- Fee map ---- */
-  const FEES = {
+  /* ---- Fee map for form dropdown (unique name avoids conflict with main.js) ---- */
+  var FORM_FEES = {
     'town-hall':     'Free',
     'summer-fair':   '$5.00',
     'sports-day':    '$10.00',
@@ -712,16 +1003,14 @@
   };
 
   /* ---- Track unsaved form state ---- */
-  let formDirty = false;
-  document.getElementById('regForm').addEventListener('input', () => { formDirty = true; });
-  document.getElementById('regForm').addEventListener('reset', () => { formDirty = false; });
+  var _formDirty = false;
 
   /* ================================================================
      1. PHONE VALIDATION — onblur
   ================================================================ */
   function validatePhone(input) {
-    const digits = input.value.replace(/\D/g, '');
-    const errEl  = document.getElementById('phoneError');
+    var digits = input.value.replace(/\D/g, '');
+    var errEl  = document.getElementById('phoneError');
     if (input.value.trim() !== '' && digits.length !== 10) {
       errEl.textContent = '⚠ Enter a valid 10-digit phone number.';
       console.log('[Phone] Invalid:', input.value);
@@ -735,50 +1024,38 @@
      2. EVENT TYPE CHANGE — onchange + localStorage
   ================================================================ */
   function onEventTypeChange(select) {
-    const val   = select.value;
-    const label = select.options[select.selectedIndex].text;
-    const fee   = FEES[val] || '';
-
-    // Show fee
-    document.getElementById('feeDisplay').textContent = fee ? `Registration fee: ${fee}` : '';
+    var val   = select.value;
+    var label = select.options[select.selectedIndex].text;
+    var fee   = FORM_FEES[val] || '';
+    document.getElementById('feeDisplay').textContent = fee ? 'Registration fee: ' + fee : '';
     console.log('[EventType] Selected:', val, '| Fee:', fee);
-
-    // Save to localStorage
     localStorage.setItem('preferredEvent', val);
     localStorage.setItem('preferredEventLabel', label);
     sessionStorage.setItem('sessionEvent', val);
     console.log('[Storage] Saved to localStorage:', val);
-
-    updatePrefDisplay();
+    if (typeof updatePrefDisplay === 'function') updatePrefDisplay();
   }
 
   /* ================================================================
-     3. FORM SUBMIT — onclick
+     3. FORM SUBMIT (inline output element — HTML5 exercise)
+         main.js handles validation + POST via addEventListener
   ================================================================ */
   function handleSubmit(e) {
     e.preventDefault();
-    const name      = document.getElementById('fullName').value.trim();
-    const email     = document.getElementById('emailAddr').value.trim();
-    const sel       = document.getElementById('eventType');
-    const typeLabel = sel.options[sel.selectedIndex]?.text || '';
-    const output    = document.getElementById('formOutput');
-
-    console.log('[FormSubmit] Name:', name, '| Email:', email, '| Event:', typeLabel);
-
+    var name      = document.getElementById('fullName').value.trim();
+    var email     = document.getElementById('emailAddr').value.trim();
+    var sel       = document.getElementById('eventType');
+    var typeLabel = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : '';
+    var output    = document.getElementById('formOutput');
     if (!name || !email || !sel.value) {
       output.textContent = '⚠ Please fill in all required fields.';
-      output.style.background  = 'rgba(192,57,43,0.08)';
-      output.style.borderColor = 'rgba(192,57,43,0.25)';
-      output.style.color       = '#C0392B';
+      output.style.background = 'rgba(192,57,43,0.08)'; output.style.color = '#C0392B';
     } else {
-      output.textContent = `✅ Thanks, ${name}! You're registered for "${typeLabel}". Confirmation sent to ${email}.`;
-      output.style.background  = '';
-      output.style.borderColor = '';
-      output.style.color       = '';
-      formDirty = false;
+      output.textContent = '✅ Thanks, ' + name + '! Registered for "' + typeLabel + '". Confirmation sent to ' + email + '.';
+      output.style.background = ''; output.style.color = '';
+      _formDirty = false;
     }
-    output.classList.add('show');
-    output.style.display = 'block';
+    output.classList.add('show'); output.style.display = 'block';
   }
 
   /* ================================================================
@@ -786,14 +1063,10 @@
   ================================================================ */
   function toggleEnlarge(img) {
     if (img.dataset.enlarged === 'true') {
-      img.style.width          = '';
-      img.style.height         = '';
-      img.dataset.enlarged     = 'false';
+      img.style.width = ''; img.style.height = ''; img.dataset.enlarged = 'false';
       console.log('[Gallery] Image restored.');
     } else {
-      img.style.width          = '300px';
-      img.style.height         = 'auto';
-      img.dataset.enlarged     = 'true';
+      img.style.width = '300px'; img.style.height = 'auto'; img.dataset.enlarged = 'true';
       console.log('[Gallery] Image enlarged to 300px.');
     }
   }
@@ -802,10 +1075,10 @@
      5. CHARACTER COUNT — oninput
   ================================================================ */
   function updateCharCount(ta) {
-    const len = ta.value.length;
-    const max = ta.maxLength;
-    const el  = document.getElementById('charCount');
-    el.textContent = `${len} / ${max} characters`;
+    var len = ta.value.length;
+    var max = ta.maxLength;
+    var el  = document.getElementById('charCount');
+    el.textContent = len + ' / ' + max + ' characters';
     el.style.color = len > max * 0.9 ? '#C0392B' : '';
     console.log('[CharCount]', len);
   }
@@ -819,78 +1092,50 @@
   }
 
   /* ================================================================
-     7. GEOLOCATION — onclick
+     7. GEOLOCATION — onclick (defined here; also in main.js as const)
   ================================================================ */
   function findNearby() {
-    const el = document.getElementById('geoResult');
-    el.className    = 'show';
-    el.textContent  = '⏳ Detecting your location…';
-
-    console.log('[Geo] Requesting position — enableHighAccuracy: true, timeout: 8000');
-
+    var el = document.getElementById('geoResult');
+    el.className = 'show'; el.textContent = '⏳ Detecting your location…';
+    console.log('[Geo] Requesting position…');
     if (!navigator.geolocation) {
-      el.textContent = '❌ Geolocation not supported by your browser.';
-      el.className   = 'show err';
-      return;
+      el.textContent = '❌ Geolocation not supported.'; el.className = 'show err'; return;
     }
-
     navigator.geolocation.getCurrentPosition(
-      /* Success */
-      function (pos) {
-        const lat = pos.coords.latitude.toFixed(5);
-        const lng = pos.coords.longitude.toFixed(5);
-        const acc = Math.round(pos.coords.accuracy);
+      function(pos) {
+        var lat = pos.coords.latitude.toFixed(5);
+        var lng = pos.coords.longitude.toFixed(5);
+        var acc = Math.round(pos.coords.accuracy);
         el.className = 'show';
-        el.innerHTML =
-          `📍 Location found!<br>` +
-          `Latitude:  <strong>${lat}</strong><br>` +
-          `Longitude: <strong>${lng}</strong><br>` +
-          `Accuracy:  ±${acc} m`;
+        el.innerHTML = '📍 Location found!<br>Latitude: <strong>' + lat + '</strong><br>Longitude: <strong>' + lng + '</strong><br>Accuracy: ±' + acc + ' m';
         console.log('[Geo] Success — lat:', lat, 'lng:', lng);
       },
-      /* Error */
-      function (err) {
-        let msg = '';
-        switch (err.code) {
-          case err.PERMISSION_DENIED:
-            msg = '🔒 Permission denied. Allow location access in browser settings.';
-            console.warn('[Geo] PERMISSION_DENIED');
-            break;
-          case err.POSITION_UNAVAILABLE:
-            msg = '📡 Position unavailable. Check your connection.';
-            console.warn('[Geo] POSITION_UNAVAILABLE');
-            break;
-          case err.TIMEOUT:
-            msg = '⏱ Request timed out. Try again.';
-            console.warn('[Geo] TIMEOUT');
-            break;
-          default:
-            msg = '❌ Unknown geolocation error.';
-            console.error('[Geo] Unknown error:', err);
-        }
-        el.textContent = msg;
-        el.className   = 'show err';
+      function(err) {
+        var msgs = { 1:'🔒 Permission denied.', 2:'📡 Position unavailable.', 3:'⏱ Request timed out.' };
+        el.textContent = msgs[err.code] || '❌ Unknown error.'; el.className = 'show err';
+        console.warn('[Geo] Error code:', err.code);
       },
       { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
     );
   }
 
   /* ================================================================
-     8. WEB STORAGE — Load preferences on page load
+     8. WEB STORAGE
   ================================================================ */
   function updatePrefDisplay() {
-    const label = localStorage.getItem('preferredEventLabel');
-    document.getElementById('savedPref').textContent = label || 'None yet';
+    var label = localStorage.getItem('preferredEventLabel');
+    var el = document.getElementById('savedPref');
+    if (el) el.textContent = label || 'None yet';
   }
 
   function loadPrefs() {
-    const saved = localStorage.getItem('preferredEvent');
+    var saved = localStorage.getItem('preferredEvent');
     if (saved) {
-      const sel = document.getElementById('eventType');
+      var sel = document.getElementById('eventType');
       if (sel) {
         sel.value = saved;
-        const fee = FEES[saved] || '';
-        if (fee) document.getElementById('feeDisplay').textContent = `Registration fee: ${fee}`;
+        var fee = FORM_FEES[saved] || '';
+        if (fee) document.getElementById('feeDisplay').textContent = 'Registration fee: ' + fee;
       }
       console.log('[Storage] Loaded preferredEvent:', saved);
     } else {
@@ -900,15 +1145,12 @@
   }
 
   function clearPrefs() {
-    localStorage.clear();
-    sessionStorage.clear();
+    localStorage.clear(); sessionStorage.clear();
     console.log('[Storage] Cleared localStorage and sessionStorage.');
-    document.getElementById('savedPref').textContent = 'None yet';
-    const sel = document.getElementById('eventType');
-    if (sel) {
-      sel.value = '';
-      document.getElementById('feeDisplay').textContent = '';
-    }
+    var el = document.getElementById('savedPref');
+    if (el) el.textContent = 'None yet';
+    var sel = document.getElementById('eventType');
+    if (sel) { sel.value = ''; var fd = document.getElementById('feeDisplay'); if(fd) fd.textContent = ''; }
     alert('Preferences cleared.');
   }
 
@@ -916,24 +1158,89 @@
      9. UNSAVED WARNING — onbeforeunload
   ================================================================ */
   function warnUnsaved() {
-    if (formDirty) {
+    if (_formDirty) {
       console.log('[BeforeUnload] Unsaved form data detected.');
       return 'You have unsaved registration data. Leave anyway?';
     }
   }
 
   /* ================================================================
-     INIT
+     BOOTSTRAP MODAL INTEGRATION (Exercise 18.1)
   ================================================================ */
-  window.addEventListener('DOMContentLoaded', function () {
-    console.log('[Init] Portal loaded. Restoring preferences…');
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // Track form dirty state
+    var regForm = document.getElementById('regForm');
+    if (regForm) {
+      regForm.addEventListener('input', function() { _formDirty = true; });
+      regForm.addEventListener('reset', function() { _formDirty = false; });
+    }
+
+    // Load saved preferences
     loadPrefs();
-    console.log('[Init] Ready.');
+
+    // Populate modal with event data from button's data-* attributes
+    var registerModalEl = document.getElementById('registerModal');
+    if (registerModalEl) {
+      registerModalEl.addEventListener('show.bs.modal', function (event) {
+        var btn = event.relatedTarget;
+        if (btn) {
+          document.getElementById('modalEventName').textContent = btn.dataset.eventName || '—';
+          document.getElementById('modalEventDate').textContent = btn.dataset.eventDate || '—';
+          document.getElementById('modalEventFee').textContent  = btn.dataset.eventFee  || '—';
+        }
+        // Clear previous modal inputs
+        var mn = document.getElementById('modalName'); if(mn) mn.value = '';
+        var me = document.getElementById('modalEmail'); if(me) me.value = '';
+      });
+    }
+
+    // Modal confirm button
+    var confirmBtn = document.getElementById('modalConfirmBtn');
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', function () {
+        var name  = document.getElementById('modalName').value.trim();
+        var email = document.getElementById('modalEmail').value.trim();
+        var eventName = document.getElementById('modalEventName').textContent;
+        if (!name || !email) {
+          alert('Please enter your name and email to confirm.');
+          return;
+        }
+        var modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+        if (modal) modal.hide();
+        setTimeout(function () {
+          alert('✅ Confirmed! ' + name + ', you are registered for "' + eventName + '".\nA confirmation will be sent to ' + email + '.');
+        }, 300);
+        console.log('[Modal] Registration confirmed:', name, email, eventName);
+      });
+    }
+
+    // Sidebar category buttons → sync with #categoryFilter (for main.js)
+    document.querySelectorAll('.sidebar-cat-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var cat = this.dataset.category;
+        var select = document.getElementById('categoryFilter');
+        if (select) { select.value = cat; select.dispatchEvent(new Event('change')); }
+        document.querySelectorAll('.sidebar-cat-btn').forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+      });
+    });
+
+    // Mobile category dropdown → sync with #categoryFilter
+    var mobileCatFilter = document.getElementById('mobileCatFilter');
+    if (mobileCatFilter) {
+      mobileCatFilter.addEventListener('change', function () {
+        var select = document.getElementById('categoryFilter');
+        if (select) { select.value = this.value; select.dispatchEvent(new Event('change')); }
+      });
+    }
+
+    console.log('[Inline] DOMContentLoaded setup complete.');
   });
 </script>
 
-  <!-- main.js — all JavaScript exercises (linked at bottom of body, Req #1) -->
-  <script src="main.js"></script>
+<!-- main.js — all JavaScript exercises (linked at bottom of body, Req #1) -->
+<script src="main.js"></script>
 
 </body>
 </html>
